@@ -54,7 +54,7 @@ TARGET_KERNEL_SOURCE := kernel/xiaomi/xuanyuan
 TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 KERNEL_BUILD_OUT_PREFIX := $(OUT_DIR)/target/product/$(TARGET_DEVICE)/obj/KERNEL_OBJ/
-TARGET_KERNEL_PLATFORM_TARGET :=
+TARGET_KERNEL_PLATFORM_TARGET := ""
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
 TARGET_PREBUILT_KERNEL_HEADERS := $(DEVICE_PATH)/prebuilts/kernel-headers.tar.gz
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilts/dtb.img
@@ -114,4 +114,5 @@ BOARD_AVB_VENDOR_BOOT_ROLLBACK_INDEX_LOCATION := 1
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
 # Inherit the proprietary files
+include vendor/lineage/config/BoardConfigLineage.mk
 include vendor/xiaomi/xuanyuan/BoardConfigVendor.mk

@@ -4,9 +4,13 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_generic.mk
+    $(LOCAL_DIR)/evolution_xuanyuan.mk \
+    $(LOCAL_DIR)/lineage_xuanyuan.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_generic-user \
-    lineage_generic-userdebug \
-    lineage_generic-eng
+    evolution_xuanyuan-user \
+    evolution_xuanyuan-userdebug \
+    evolution_xuanyuan-eng \
+    lineage_xuanyuan-user \
+    lineage_xuanyuan-userdebug \
+    lineage_xuanyuan-eng

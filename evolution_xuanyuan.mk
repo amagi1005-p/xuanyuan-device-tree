@@ -1,5 +1,5 @@
 #
-# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-FileCopyrightText: The Evolution X Project
 # SPDX-License-Identifier: Apache-2.0
 #
 
@@ -7,17 +7,17 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# Inherit from generic device
-$(call inherit-product, device/xiaomi/generic/device.mk)
+# Inherit from xuanyuan device
+$(call inherit-product, device/xiaomi/xuanyuan/device.mk)
 
-# Inherit some common Lineage stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+# Inherit some common Evolution X stuff.
+$(call inherit-product, vendor/evolution/config/common_full_phone.mk)
 
-PRODUCT_DEVICE := generic
-PRODUCT_NAME := lineage_generic
-PRODUCT_BRAND := Android
-PRODUCT_MODEL := mainline
-PRODUCT_MANUFACTURER := xiaomi
+PRODUCT_DEVICE := xuanyuan
+PRODUCT_NAME := evolution_xuanyuan
+PRODUCT_BRAND := Xiaomi
+PRODUCT_MODEL := Xiaomi 15 Ultra
+PRODUCT_MANUFACTURER := Xiaomi
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 

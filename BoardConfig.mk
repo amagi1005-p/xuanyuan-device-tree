@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-DEVICE_PATH := device/xiaomi/generic
+DEVICE_PATH := device/xiaomi/xuanyuan
 
 # A/B
 AB_OTA_UPDATER := true
@@ -47,8 +47,8 @@ BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
-TARGET_KERNEL_CONFIG := generic_defconfig
-TARGET_KERNEL_SOURCE := kernel/xiaomi/generic
+TARGET_KERNEL_CONFIG := xuanyuan_defconfig
+TARGET_KERNEL_SOURCE := kernel/xiaomi/xuanyuan
 
 # Kernel - prebuilt
 TARGET_FORCE_PREBUILT_KERNEL := true
@@ -65,6 +65,7 @@ endif
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_DTBOIMG_PARTITION_SIZE := 18874368
+BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 100663296
 BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
 BOARD_SUPER_PARTITION_GROUPS := xiaomi_dynamic_partitions
@@ -110,4 +111,4 @@ BOARD_AVB_VENDOR_BOOT_ROLLBACK_INDEX_LOCATION := 1
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
 # Inherit the proprietary files
-include vendor/xiaomi/generic/BoardConfigVendor.mk
+include vendor/xiaomi/xuanyuan/BoardConfigVendor.mk

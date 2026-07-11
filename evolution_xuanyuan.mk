@@ -10,8 +10,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from xuanyuan device
 $(call inherit-product, device/xiaomi/xuanyuan/device.mk)
 
-# Inherit some common Evolution X stuff.
-$(call inherit-product, vendor/evolution/config/common_full_phone.mk)
+# Evolution X's shared product configuration is installed at vendor/lineage
+# by its vendor_evolution manifest project.
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 PRODUCT_DEVICE := xuanyuan
 PRODUCT_NAME := evolution_xuanyuan

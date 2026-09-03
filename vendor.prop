@@ -272,7 +272,6 @@ ro.vendor.beluga.c=0x4800
 ro.vendor.beluga.p=0x3
 ro.vendor.beluga.s=0x900
 ro.vendor.beluga.t=0x240
-ro.vendor.build.ab_ota_partitions=vendor
 ro.vendor.displayfeature.dump=true
 ro.vendor.miface.started=true
 ro.vendor.mm.vibrator.sys_path=/sys/class/qcom-haptics
@@ -298,4 +297,3 @@ vendor.qc2audio.per_frame.flac.dec.enabled=true
 vendor.qc2audio.suspend.enabled=true
 vendor.wv.oemcrypto.debug.enable_external_display_check=false
 vendor.wv.oemcrypto.debug.enable_hlos_data_path=true
-

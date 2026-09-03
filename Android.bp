@@ -5,3 +5,15 @@
 
 soong_namespace {
 }
+
+mkdir {
+    name: "vendor_modem_firmware_mountpoint",
+    dir: "modem_firmware",
+    vendor: true,
+}
+
+mkdir {
+    name: "product_vm_system_mountpoint",
+    dir: "vm-system",
+    product_specific: true,
+}

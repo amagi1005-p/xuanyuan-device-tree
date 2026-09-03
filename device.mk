@@ -10,11 +10,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
 PRODUCT_PACKAGES += \
-    android.hardware.boot@1.2-impl \
-    android.hardware.boot@1.2-impl.recovery \
-    android.hardware.boot@1.2-service
-
-PRODUCT_PACKAGES += \
     update_engine \
     update_engine_sideload \
     update_verifier
@@ -38,15 +33,35 @@ PRODUCT_PACKAGES += \
 # API levels
 PRODUCT_SHIPPING_API_LEVEL := 35
 
+# Legacy HIDL compatibility
+# The stock vendor stack still exposes legacy HIDL HALs even though the
+# device launched on API level 35.
+PRODUCT_PACKAGES += \
+    android.hidl.allocator@1.0-service \
+    android.hidl.memory@1.0-impl \
+    hwservicemanager
+
+# Core vendor services
+# Use the source-built modules here. The similarly named proprietary
+# prebuilts are dependency-only variants and are not installable.
+PRODUCT_PACKAGES += \
+    android.hardware.health-service.qti \
+    android.hardware.wifi-service \
+    charger \
+    wpa_supplicant
+
 # fastbootd
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.1-impl-mock \
     fastbootd
 
-# Health
+# Developer GSI AVB keys for first-stage mounts
+$(call inherit-product, $(SRC_TARGET_DIR)/product/developer_gsi_keys.mk)
+
+# fastbootd and Qualcomm recovery HALs
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-service
+    android.hardware.health-service.qti_recovery \
+    fastbootd
 
 # Kernel
 PRODUCT_ENABLE_UFFD_GC := true
@@ -59,6 +74,10 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Product characteristics
 PRODUCT_CHARACTERISTICS := nosdcard
+
+# VINTF
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    device/xiaomi/xuanyuan/vintf/device_framework_matrix.xml
 
 # Rootdir
 PRODUCT_PACKAGES += \
@@ -139,11 +158,69 @@ PRODUCT_PACKAGES += \
     miui.factoryreset.rc \
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_VENDOR_RAMDISK_OUT)/first_stage_ramdisk/fstab.qcom
+    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
+
+# Physical firmware partition mount points. These must exist in the read-only
+# images before second-stage init runs mount_all.
+PRODUCT_PACKAGES += \
+    vendor_bt_firmware_mountpoint \
+    vendor_dsp_mountpoint \
+    vendor_firmware_mnt_mountpoint \
+    vendor_modem_firmware_mountpoint \
+    product_vm_system_mountpoint
+
+PRODUCT_PACKAGES += \
+    libprotobuf-cpp-full-21.12-system_ext
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
-    $(LOCAL_PATH)
+    $(LOCAL_PATH) \
+    hardware/qcom-caf/wlan
 
 # Inherit the proprietary files
-$(call inherit-product, vendor/xiaomi/generic/generic-vendor.mk)
+$(call inherit-product, vendor/xiaomi/xuanyuan/xuanyuan-vendor.mk)
+
+# Early boot diagnostics
+PRODUCT_COPY_FILES += \
+    device/xiaomi/xuanyuan/rootdir/system_ext/etc/init/init.xuanyuan.bootdiag.rc:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/init/init.xuanyuan.bootdiag.rc \
+    device/xiaomi/xuanyuan/rootdir/system_ext/bin/bootdiag.sh:$(TARGET_COPY_OUT_SYSTEM_EXT)/bin/bootdiag.sh
+
+# Legacy vendor Binder context manager required by stock vendor stack
+PRODUCT_PACKAGES += \
+    vndservicemanager
+
+# Runtime AIDL library required by the stock KeyMint V3 services.
+PRODUCT_PACKAGES += \
+    android.hardware.security.keymint-V3-ndk.vendor
+
+# Compatibility libraries required by the stock Android 15 vendor/ODM HALs.
+PRODUCT_PACKAGES += \
+    android.hardware.camera.provider-V2-ndk.vendor \
+    android.hardware.drm-V1-ndk.vendor \
+    android.hardware.graphics.allocator-V1-ndk.vendor \
+    android.hardware.graphics.common-V5-ndk.vendor \
+    android.hardware.sensors-V2-ndk.vendor \
+    libcld80211 \
+    libprotobuf-cpp-full-21.12-vendorcompat \
+    libprotobuf-cpp-lite-21.12-vendorcompat \
+    libsensorndkbridge \
+    vendor.qti.diaghal-V1-ndk-system_ext \
+    vendor.qti.hardware.display.allocator@4.0.vendor
+
+# Stable AIDL compatibility libraries required by the stock Android 15 audio HAL.
+PRODUCT_PACKAGES += \
+    android.hardware.audio.common-V3-ndk.vendor \
+    android.hardware.audio.core-V2-ndk.vendor \
+    android.hardware.audio.core.sounddose-V1-ndk.vendor \
+    android.hardware.audio.effect-V2-ndk.vendor \
+    android.media.audio.common.types-V2-ndk.vendor \
+    android.media.audio.common.types-V3-ndk.vendor
+
+# Stock audio service implementation dependencies.
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth.audio-V4-ndk.vendor \
+    android.hardware.bluetooth.audio-impl \
+    libbluetooth_audio_session_aidl \
+    libaudioutils_shim \
+    libbluetooth_audio_session_aidl_shim \
+    libstagefright_foundation-v33

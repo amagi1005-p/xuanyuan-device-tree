@@ -24,6 +24,7 @@ are not claimed fixed. These live results do not substitute for testing EvoX.
 - `build-support/sm8750-common/` snapshots the local common layer expected
   at `device/xiaomi/sm8750-common` (not a replacement from a reference repo).
 - `build-support/vendor-config/` snapshots generated vendor build definitions;
+  the `.snapshot` suffix prevents them from being discovered as live modules.
   the proprietary vendor tree itself is required separately. This repository
   does not publish all vendor blobs or fully automate their prior fixups.
 - The large Camera APK uses Git LFS; run `git lfs pull` after checkout.

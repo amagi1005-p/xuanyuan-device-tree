@@ -335,10 +335,10 @@ PRODUCT_PACKAGES += \
     xuanyuan_a16_SystemUIRes
 
 # The 303 IR service is a prebuilt, so it does not inherit the source
-# module's init_rc/vintf_fragments. Install its matching AIDL glue explicitly.
+# module's init_rc/vintf_fragments. Install the RC and feature here; the AIDL
+# manifest is merged through DEVICE_MANIFEST_FILE in BoardConfig.mk.
 PRODUCT_COPY_FILES += \
     hardware/interfaces/ir/aidl/default/android.hardware.ir-service.example.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/android.hardware.ir-service.example.rc \
-    hardware/interfaces/ir/aidl/default/android.hardware.ir-service.example.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vintf/manifest/android.hardware.ir-service.example.xml \
     frameworks/native/data/etc/android.hardware.consumerir.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.consumerir.xml
 
 PRODUCT_COPY_FILES += \

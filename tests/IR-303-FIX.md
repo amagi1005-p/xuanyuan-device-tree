@@ -34,4 +34,11 @@ transmission was performed by these read-only queries.
 
 The user confirmed actual appliance control after reboot (2026-10-15).
 Pending: full policy/build validation for the new EvoX build.
+
+The first EvoX attempt passed Soong analysis but Kati rejected VINTF metadata
+in PRODUCT_COPY_FILES (21:07 JST). The build declaration now uses
+DEVICE_MANIFEST_FILE in BoardConfig.mk, merging the same AIDL HAL into the
+vendor manifest. RC and feature installation are unchanged. The live overlay
+was not changed. Revisit that temporary fragment when an actual ROM flash is
+authorized; do not add a duplicate IR declaration to a flashed aggregate.
 Do not call physical IR transmission verified until an appliance responds.

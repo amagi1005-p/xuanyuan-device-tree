@@ -23,9 +23,18 @@ class IrInstallTest(unittest.TestCase):
         self.assertIsNotNone(ET.parse(src).find("./feature[@name='android.hardware.consumerir']"))
 
     def test_hal_is_declared(self):
-        src = self.files.get("vendor/etc/vintf/manifest/android.hardware.ir-service.example.xml")
-        self.assertIsNotNone(src, "IR AIDL manifest is not installed")
-        hal = ET.parse(src).find("./hal[name='android.hardware.ir']")
+        self.assertFalse(any("/etc/vintf/" in dst for dst in self.files),
+                         "VINTF metadata must not use PRODUCT_COPY_FILES")
+        board = (DEVICE / "BoardConfig.mk").read_text()
+        manifests = re.findall(r"(?m)^DEVICE_MANIFEST_FILE\s*\+=\s*(.+)$", board)
+        hal = None
+        for entry in manifests:
+            for src in entry.split():
+                src = src.replace("$(DEVICE_PATH)", "device/xiaomi/xuanyuan")
+                found = ET.parse(ROOT / src).find("./hal[name='android.hardware.ir']")
+                if found is not None:
+                    self.assertIsNone(hal, "Duplicate IR HAL declaration")
+                    hal = found
         self.assertIsNotNone(hal)
         self.assertEqual(hal.get("format"), "aidl")
         self.assertEqual(hal.findtext("fqname"), "IConsumerIr/default")

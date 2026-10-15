@@ -193,3 +193,7 @@ ODM_MANIFEST_FILES := $(DEVICE_PATH)/vintf/manifest_odm.xml
 
 # Wi-Fi VINTF fragment (Android 16 build rules)
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/wifi/android.hardware.wifi-service.xml
+
+# The stock IR prebuilt has no attached vintf_fragments. Merge its AIDL
+# declaration instead of copying VINTF metadata through PRODUCT_COPY_FILES.
+DEVICE_MANIFEST_FILE += hardware/interfaces/ir/aidl/default/android.hardware.ir-service.example.xml

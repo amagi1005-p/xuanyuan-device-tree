@@ -10,6 +10,24 @@ index 48c1fefcf5..1a7836449f 100644
      defaults: [
          "aidlaudioservice_defaults",
          "latest_android_media_audio_common_types_ndk_shared",
+diff --git a/bluetooth/audio/utils/Android.bp b/bluetooth/audio/utils/Android.bp
+index 4e247606db..4689a13be4 100644
+--- a/bluetooth/audio/utils/Android.bp
++++ b/bluetooth/audio/utils/Android.bp
+@@ -7,6 +7,13 @@ package {
+     default_applicable_licenses: ["hardware_interfaces_license"],
+ }
+ 
++// Public build headers for the stock vendor session implementation.
++cc_library_headers {
++    name: "xuanyuan_bluetooth_audio_session_headers",
++    vendor: true,
++    export_include_dirs: ["aidl_session"],
++}
++
+ cc_library_shared {
+     name: "libbluetooth_audio_session",
+     defaults: ["hidl_defaults"],
 diff --git a/bluetooth/audio/utils/aidl_session/BluetoothAudioSession.cpp b/bluetooth/audio/utils/aidl_session/BluetoothAudioSession.cpp
 index 7fe1562f29..47c33f382a 100644
 --- a/bluetooth/audio/utils/aidl_session/BluetoothAudioSession.cpp

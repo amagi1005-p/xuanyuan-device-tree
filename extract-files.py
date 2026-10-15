@@ -13,6 +13,7 @@ from extract_utils.main import (
     ExtractUtilsModule,
 )
 from pathlib import Path
+from scripts.stock_library_owners import configure_stock_library_owners
 
 namespace_imports = [
     'device/xiaomi/xuanyuan',
@@ -22,11 +23,6 @@ namespace_imports = [
 # Dependency-only stock ABI snapshots; installed source providers are verified
 # separately by the runtime ELF check before packaging.
 vendor_suffix_libs = (
-    'android.hardware.bluetooth.audio-impl',
-    'libbluetooth_audio_session_aidl',
-    'android.frameworks.cameraservice.common-V1-ndk',
-    'android.frameworks.cameraservice.device-V2-ndk',
-    'android.frameworks.cameraservice.service-V2-ndk',
     'audio.bluetooth.default',
     'android.hardware.audio.common-V3-ndk',
     'android.hardware.audio.core-V2-ndk',
@@ -49,7 +45,6 @@ vendor_suffix_libs = (
     'android.hardware.health-service.qti',
     'android.hardware.security.sharedsecret-V2-ndk',
     'android.hardware.wifi-service',
-    'libwifi-system-iface',
     'android.hardware.security.keymint-V3-ndk',
     'android.media.audio.common.types-V2-ndk',
     'android.media.audio.common.types-V3-ndk',
@@ -72,9 +67,6 @@ vendor_suffix_libs = (
 )
 
 non_installable_modules = (
-    'android.frameworks.cameraservice.common-V1-ndk_vendor',
-    'android.frameworks.cameraservice.device-V2-ndk_vendor',
-    'android.frameworks.cameraservice.service-V2-ndk_vendor',
     'android.frameworks.sensorservice-V1-ndk_vendor',
     'android.hardware.biometrics.fingerprint-V5-ndk_vendor',
     'android.hardware.bluetooth.audio@2.0-impl_vendor',
@@ -470,5 +462,7 @@ if __name__ == '__main__':
     fix_libpowercore_generated_dependencies()
     allow_stock_undefined_symbols()
     disable_stock_elf_checks()
+    bp_path = Path(__file__).resolve().parents[3] / 'vendor/xiaomi/xuanyuan/Android.bp'
+    bp_path.write_text(configure_stock_library_owners(bp_path.read_text()))
     mark_source_duplicates_non_installable()
     remove_non_installable_product_packages()

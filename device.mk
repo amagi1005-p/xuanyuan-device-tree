@@ -257,8 +257,8 @@ PRODUCT_PACKAGES += \
 # Retain the stock303 V4 provider/session ABI used by QTI software A2DP.
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth.audio-V4-ndk.vendor \
-    android.hardware.bluetooth.audio-impl_vendor \
-    libbluetooth_audio_session_aidl_vendor \
+    android.hardware.bluetooth.audio-impl \
+    libbluetooth_audio_session_aidl \
     libstagefright_foundation-v33
 
 # SM8750 AudioPolicy uses the xuanyuan-specific top-level policy.
@@ -435,16 +435,16 @@ PRODUCT_PACKAGES += \
     vendor.dolby.dvs-V1-ndk-xuanyuan-stock \
     vendor.xiaomi.hardware.videoservice-V2-ndk-xuanyuan-stock
 
-# Install the source vendor variant for ODM camera DT_NEEDED, keeping the
-# dependency-only compat prebuilt non-installable to avoid duplicate outputs.
+# Keep the source vndfwk shim. The camera interfaces use preferred stock
+# providers under the canonical vendor-variant identities (no duplicate owner).
 PRODUCT_PACKAGES += libqti_vndfwk_detect.vendor
-PRODUCT_PACKAGES += android.frameworks.cameraservice.common-V1-ndk_vendor
+PRODUCT_PACKAGES += android.frameworks.cameraservice.common-V1-ndk.vendor
 
 # Advertise supported NFC hardware to PackageManager.
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.nfc.xml:vendor/etc/permissions/android.hardware.nfc.xml
 
 # Required by mifaced/libcamera2ndk_vendor at runtime.
-PRODUCT_PACKAGES += android.frameworks.cameraservice.device-V2-ndk_vendor
+PRODUCT_PACKAGES += android.frameworks.cameraservice.device-V2-ndk.vendor
 
-PRODUCT_PACKAGES += android.frameworks.cameraservice.service-V2-ndk_vendor
+PRODUCT_PACKAGES += android.frameworks.cameraservice.service-V2-ndk.vendor
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.nfc.hce.xml:vendor/etc/permissions/android.hardware.nfc.hce.xml

@@ -377,9 +377,9 @@ vendor/lib64/hw/audio.bluetooth.default.so;MODULE_SUFFIX=_vendor
 vendor/lib64/hw/audio.bluetooth_qti.default.so
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_audio@2.1-impl.so
-vendor/lib64/android.hardware.bluetooth.audio-impl.so;MODULE_SUFFIX=_vendor
+vendor/lib64/android.hardware.bluetooth.audio-impl.so
 vendor/lib64/libbluetooth_audio_session.so;MODULE_SUFFIX=_vendor
-vendor/lib64/libbluetooth_audio_session_aidl.so;MODULE_SUFFIX=_vendor
+vendor/lib64/libbluetooth_audio_session_aidl.so
 vendor/lib64/libbluetooth_audio_session_aidl_qti.so
 vendor/lib64/libbluetooth_audio_session_qti.so
 vendor/lib64/libbluetooth_audio_session_qti_2_1.so
@@ -3773,7 +3773,7 @@ odm/lib64/mi_weaver.so
 system_ext/lib64/vendor.qti.hardware.wigig.netperftuner@1.0.so
 system_ext/lib64/vendor.qti.hardware.wigig.supptunnel@1.0.so
 vendor/bin/hw/android.hardware.wifi-service;MODULE_SUFFIX=_vendor|33695faa0a9d910d7da0b2c499bd7b746ed58d92
-vendor/lib64/libwifi-system-iface.so;MODULE_SUFFIX=_vendor|28fd044d28c62b3236f7efb0d17ca37e6521b7d0
+vendor/lib64/libwifi-system-iface.so|28fd044d28c62b3236f7efb0d17ca37e6521b7d0
 vendor/bin/hw/hostapd;MODULE_SUFFIX=_vendor
 vendor/bin/hw/wpa_supplicant;MODULE_SUFFIX=_vendor
 vendor/bin/cnss-daemon
@@ -5104,9 +5104,9 @@ vendor/lib64/hw/libaudioeffecthal.qti.so
 vendor/lib64/hw/libsoundtriggerhal.qti.so
 vendor/lib64/hw/mbedtls_qti.so
 vendor/lib64/btaudio_offload_if.so
-vendor/lib64/android.frameworks.cameraservice.common-V1-ndk.so;MODULE_SUFFIX=_vendor
-vendor/lib64/android.frameworks.cameraservice.device-V2-ndk.so;MODULE_SUFFIX=_vendor
-vendor/lib64/android.frameworks.cameraservice.service-V2-ndk.so;MODULE_SUFFIX=_vendor
+vendor/lib64/android.frameworks.cameraservice.common-V1-ndk.so
+vendor/lib64/android.frameworks.cameraservice.device-V2-ndk.so
+vendor/lib64/android.frameworks.cameraservice.service-V2-ndk.so
 vendor/lib64/android.frameworks.sensorservice-V1-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/android.hardware.audio.common-V3-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/android.hardware.audio.core-V2-ndk.so;MODULE_SUFFIX=_vendor

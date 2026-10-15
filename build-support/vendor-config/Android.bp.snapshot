@@ -10,7 +10,16 @@ soong_namespace {
 }
 
 cc_prebuilt_library_shared {
-    name: "android.frameworks.cameraservice.common-V1-ndk_vendor",
+    name: "android.frameworks.cameraservice.common-V1-ndk",
+    generated_headers: ["android.frameworks.cameraservice.common-V1-ndk-source"],
+    export_generated_headers: ["android.frameworks.cameraservice.common-V1-ndk-source"],
+    shared_libs: [
+        "libbinder_ndk",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
     installable: true,
     stem: "android.frameworks.cameraservice.common-V1-ndk",
     owner: "xiaomi",
@@ -18,26 +27,33 @@ cc_prebuilt_library_shared {
         none: true,
     },
     target: {
-        android_arm64: {
+        vendor: {
             srcs: [
                 "proprietary/vendor/lib64/android.frameworks.cameraservice.common-V1-ndk.so",
-            ],
-            shared_libs: [
-                "libbinder_ndk",
-                "libc++",
-                "libc",
-                "libm",
-                "libdl",
             ],
         },
     },
     compile_multilib: "64",
     prefer: true,
-    soc_specific: true,
+    vendor_available: true,
 }
 
 cc_prebuilt_library_shared {
-    name: "android.frameworks.cameraservice.device-V2-ndk_vendor",
+    name: "android.frameworks.cameraservice.device-V2-ndk",
+    generated_headers: ["android.frameworks.cameraservice.device-V2-ndk-source"],
+    export_generated_headers: ["android.frameworks.cameraservice.device-V2-ndk-source"],
+    export_shared_lib_headers: ["android.frameworks.cameraservice.common-V1-ndk", "android.hardware.common.fmq-V1-ndk", "android.hardware.common-V2-ndk"],
+    shared_libs: [
+        "libbinder_ndk",
+        "libnativewindow",
+        "android.frameworks.cameraservice.common-V1-ndk",
+        "android.hardware.common.fmq-V1-ndk",
+        "android.hardware.common-V2-ndk",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
     installable: true,
     stem: "android.frameworks.cameraservice.device-V2-ndk",
     owner: "xiaomi",
@@ -45,30 +61,32 @@ cc_prebuilt_library_shared {
         none: true,
     },
     target: {
-        android_arm64: {
+        vendor: {
             srcs: [
                 "proprietary/vendor/lib64/android.frameworks.cameraservice.device-V2-ndk.so",
-            ],
-            shared_libs: [
-                "libbinder_ndk",
-                "libnativewindow",
-                "android.frameworks.cameraservice.common-V1-ndk_vendor",
-                "android.hardware.common.fmq-V1-ndk",
-                "android.hardware.common-V2-ndk",
-                "libc++",
-                "libc",
-                "libm",
-                "libdl",
             ],
         },
     },
     compile_multilib: "64",
     prefer: true,
-    soc_specific: true,
+    vendor_available: true,
 }
 
 cc_prebuilt_library_shared {
-    name: "android.frameworks.cameraservice.service-V2-ndk_vendor",
+    name: "android.frameworks.cameraservice.service-V2-ndk",
+    generated_headers: ["android.frameworks.cameraservice.service-V2-ndk-source"],
+    export_generated_headers: ["android.frameworks.cameraservice.service-V2-ndk-source"],
+    export_shared_lib_headers: ["android.frameworks.cameraservice.common-V1-ndk", "android.frameworks.cameraservice.device-V2-ndk"],
+    shared_libs: [
+        "libbinder_ndk",
+        "libnativewindow",
+        "android.frameworks.cameraservice.common-V1-ndk",
+        "android.frameworks.cameraservice.device-V2-ndk",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
     installable: true,
     stem: "android.frameworks.cameraservice.service-V2-ndk",
     owner: "xiaomi",
@@ -76,25 +94,15 @@ cc_prebuilt_library_shared {
         none: true,
     },
     target: {
-        android_arm64: {
+        vendor: {
             srcs: [
                 "proprietary/vendor/lib64/android.frameworks.cameraservice.service-V2-ndk.so",
-            ],
-            shared_libs: [
-                "libbinder_ndk",
-                "libnativewindow",
-                "android.frameworks.cameraservice.common-V1-ndk_vendor",
-                "android.frameworks.cameraservice.device-V2-ndk_vendor",
-                "libc++",
-                "libc",
-                "libm",
-                "libdl",
             ],
         },
     },
     compile_multilib: "64",
     prefer: true,
-    soc_specific: true,
+    vendor_available: true,
 }
 
 cc_prebuilt_library_shared {
@@ -306,7 +314,7 @@ cc_prebuilt_library_shared {
 }
 
 cc_prebuilt_library_shared {
-    name: "android.hardware.bluetooth.audio-impl_vendor",
+    name: "android.hardware.bluetooth.audio-impl",
     stem: "android.hardware.bluetooth.audio-impl",
     owner: "xiaomi",
     strip: {
@@ -324,7 +332,7 @@ cc_prebuilt_library_shared {
                 "libcutils",
                 "libfmq",
                 "liblog",
-                "libbluetooth_audio_session_aidl_vendor",
+                "libbluetooth_audio_session_aidl",
                 "libc++",
                 "libc",
                 "libm",
@@ -1861,7 +1869,7 @@ cc_prebuilt_library_shared {
                 "libbase",
                 "libbinder_ndk",
                 "vendor.qti.hardware.bluetooth.audio-V1-ndk",
-                "libbluetooth_audio_session_aidl_vendor",
+                "libbluetooth_audio_session_aidl",
                 "libcutils",
                 "libfmq",
                 "liblog",
@@ -5602,10 +5610,10 @@ cc_prebuilt_library_shared {
                 "libxml2",
                 "android.hardware.common-V2-ndk",
                 "android.hardware.common.fmq-V1-ndk",
-                "android.hardware.bluetooth.audio-impl_vendor",
+                "android.hardware.bluetooth.audio-impl",
                 "libaudio_aidl_conversion_common_ndk_vendor",
                 "libaudioutils_vendor",
-                "libbluetooth_audio_session_aidl_vendor",
+                "libbluetooth_audio_session_aidl",
                 "liblog",
                 "libmedia_helper",
                 "libmediautils_vendor",
@@ -6109,7 +6117,7 @@ cc_prebuilt_library_shared {
                 "libhidlbase",
                 "liblog",
                 "libutils",
-                "libbluetooth_audio_session_aidl_vendor",
+                "libbluetooth_audio_session_aidl",
                 "libc++",
                 "libc",
                 "libm",
@@ -6123,7 +6131,9 @@ cc_prebuilt_library_shared {
 }
 
 cc_prebuilt_library_shared {
-    name: "libbluetooth_audio_session_aidl_vendor",
+    name: "libbluetooth_audio_session_aidl",
+    header_libs: ["xuanyuan_bluetooth_audio_session_headers"],
+    export_header_lib_headers: ["xuanyuan_bluetooth_audio_session_headers"],
     stem: "libbluetooth_audio_session_aidl",
     owner: "xiaomi",
     strip: {
@@ -6395,9 +6405,9 @@ cc_prebuilt_library_shared {
                 "proprietary/vendor/lib64/libcamera2ndk_vendor.so",
             ],
             shared_libs: [
-                "android.frameworks.cameraservice.common-V1-ndk_vendor",
-                "android.frameworks.cameraservice.device-V2-ndk_vendor",
-                "android.frameworks.cameraservice.service-V2-ndk_vendor",
+                "android.frameworks.cameraservice.common-V1-ndk",
+                "android.frameworks.cameraservice.device-V2-ndk",
+                "android.frameworks.cameraservice.service-V2-ndk",
                 "libbinder_ndk",
                 "libcamera_metadata",
                 "libcutils",
@@ -65092,7 +65102,7 @@ cc_prebuilt_binary {
                 "libnl",
                 "libutils",
                 "libwifi-hal",
-                "libwifi-system-iface_vendor",
+                "libwifi-system-iface",
                 "libxml2",
                 "android.hardware.wifi-V2-ndk",
                 "vendor.xiaomi.hardware.wifi.hardware-V1-ndk",
@@ -72165,13 +72175,19 @@ cc_prebuilt_library_shared {
 }
 
 cc_prebuilt_library_shared {
-    name: "libwifi-system-iface_vendor",
+    name: "libwifi-system-iface",
+    header_libs: ["xuanyuan_wifi_system_iface_headers"],
+    export_header_lib_headers: ["xuanyuan_wifi_system_iface_headers"],
+    shared_libs: ["libbase", "libc++", "libc", "libm", "libdl"],
+    target: {
+        vendor: {
+            srcs: ["proprietary/vendor/lib64/libwifi-system-iface.so"],
+        },
+    },
     stem: "libwifi-system-iface",
     owner: "xiaomi",
-    srcs: ["proprietary/vendor/lib64/libwifi-system-iface.so"],
-    shared_libs: ["libbase", "libc++", "libc", "libm", "libdl"],
     compile_multilib: "64",
     strip: { none: true },
     prefer: true,
-    soc_specific: true,
+    vendor_available: true,
 }

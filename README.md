@@ -35,6 +35,7 @@ From the ROM root, after preparing the above inputs:
 
 ```sh
 source build/envsetup.sh
+export GOGC=50 GOMEMLIMIT=8GiB  # Optional: low-memory build host, with bundled Soong patch
 lunch lineage_xuanyuan-bp4a-userdebug
 m evolution -j4
 ```

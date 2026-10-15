@@ -190,7 +190,7 @@ vendor/lib64/soundfx/libloudnessenhanceraidl.so;MODULE_SUFFIX=_vendor
 vendor/lib64/soundfx/libreverbaidl.so;MODULE_SUFFIX=_vendor
 vendor/lib64/soundfx/libvisualizeraidl.so;MODULE_SUFFIX=_vendor
 # Audio (FX modules)
-vendor/lib64/soundfx/libbundleaidl.so
+vendor/lib64/soundfx/libbundleaidl.so;MODULE_SUFFIX=_vendor
 vendor/lib64/soundfx/libdlbvolaidl.so
 vendor/lib64/soundfx/libdynproc.so
 vendor/lib64/soundfx/libhapticgenerator.so
@@ -215,12 +215,12 @@ vendor/lib64/libar-acdb.so
 vendor/lib64/libar-gpr.so
 vendor/lib64/libar-gsl.so
 vendor/lib64/libar-pal.so
-vendor/lib64/libaudioroute-v34.so:vendor/lib64/libaudioroute-xuanyuan-v34.so;DISABLE_DEPS
+vendor/lib64/libaudioroute.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libarmemlog.so
 vendor/lib64/libats.so
-vendor/lib64/libaudio_aidl_conversion_common_ndk.so:vendor/lib64/libaudio_aidl_conversion_common_ndk_xuanyuan.so
+vendor/lib64/libaudio_aidl_conversion_common_ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libaudio_log_utils.so
-vendor/lib64/libtinyalsa.so:vendor/lib64/libtinyalsa-v34.so;DISABLE_DEPS;FIX_SONAME
+vendor/lib64/libtinyalsa.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libav_lvacfsencoder.so
 vendor/lib64/libav_miwnsencoder.so
 vendor/lib64/libav_ozoencoder.so
@@ -248,8 +248,9 @@ vendor/lib64/libqmi_cci.so
 vendor/lib64/libqmi_common_so.so
 vendor/lib64/libqmi_encdec.so
 vendor/lib64/libqrtr.so
-vendor/lib64/libspatializerparamstorage.so
-vendor/lib64/libswspatializeraidl_ext.so
+# Matched to stock OS3.0.303.0.WOAEUXM libswspatializeraidl.so ABI. Keep this pair together.
+vendor/lib64/libspatializerparamstorage.so|0d700fc467568fe574833d67f2900a64d181194a
+vendor/lib64/libswspatializeraidl_ext.so|d3945cfd79092d8aa2b75642eaecf5ad1bf26767
 vendor/lib64/libvui_intf.so
 vendor/lib64/libxlog.so
 vendor/lib64/vendor.qti.hardware.agm-V1-ndk.so
@@ -335,7 +336,7 @@ vendor/etc/audio/sku_tuna/resourcemanager_tuna_mtp.xml
 vendor/etc/audio/sku_tuna/resourcemanager_tuna_qrd.xml
 vendor/etc/audio/sku_tuna_qssi/audio_policy_configuration.xml
 vendor/etc/audio/audio_module_config_primary.xml
-vendor/etc/audio/vendor_audio_interfaces.xml
+# vendor_audio_interfaces.xml is supplied by the device audio compatibility config.
 vendor/etc/a2dp_audio_policy_configuration.xml
 vendor/etc/audio_policy_configuration.xml
 vendor/etc/audio_policy_engine_configuration.xml
@@ -365,6 +366,7 @@ vendor/lib64/libqmi.so
 vendor/lib64/libqmi_client_qmux.so
 vendor/lib64/libqmiservices.so
 vendor/lib64/libqti_vndfwk_detect_vendor.so
+vendor/lib64/libqti_vndfwk_detect_vendor.so:vendor/lib64/libqti_vndfwk_detect.so;FIX_SONAME;MODULE=libqti_vndfwk_detect_compat
 vendor/lib64/libsoc_helper.so
 vendor/lib64/vendor.qti.hardware.bluetooth.xpanprovider-V1-ndk.so
 vendor/lib64/vendor.qti.hardware.bttpi-V3-ndk.so
@@ -400,7 +402,7 @@ odm/lib64/camera/components/com.mi.node.mimovie.so
 odm/lib64/camera/components/com.mi.node.mioisverify.so
 odm/lib64/camera/components/com.mi.node.realtimebokeh.so
 odm/lib64/camera/components/com.mi.node.tsskinbeautifier.so
-vendor/lib64/camera/components/com.mi.node.videofilter.so
+odm/lib64/camera/components/com.mi.node.videofilter.so
 odm/lib64/camera/components/com.mi.node.videonight.so
 odm/lib64/camera/components/com.qti.eisv2.so
 odm/lib64/camera/components/com.qti.eisv3.so
@@ -519,7 +521,7 @@ odm/lib64/camera/components/libstats.aipdlib.so
 odm/lib64/camera/components/libstats.pdlib.so
 odm/lib64/camera/dynamicplugins/com.xiaomi.plugin.edof.so
 odm/lib64/camera/dynamicplugins/com.xiaomi.plugin.ldc.so
-odm/lib64/camera/plugins/com.xiaomi.plugin.mialgoallinone.so
+odm/lib64/camera/dynamicplugins/com.xiaomi.plugin.mialgoallinone.so|e388f3059e378d528da76c9691b006bff1a92365
 odm/lib64/camera/dynamicplugins/com.xiaomi.plugin.portraitrepair.so
 odm/lib64/camera/plugins/com.xiaomi.plugin.GestureEffects.so
 odm/lib64/camera/plugins/com.xiaomi.plugin.anchor.so
@@ -656,8 +658,8 @@ odm/lib64/camera/fdconfigvideolite.bin
 odm/lib64/camera/libchxlogicalcameratable.so
 odm/lib64/camera/libmicamvendorcustom.so
 odm/lib64/camera/qfdserviceconfig.bin
+odm/lib64/hw/camera.qcom.so
 odm/lib64/hw/camera.qcom.sm8750.so
-vendor/lib64/hw/camera.qcom.so
 odm/lib64/hw/com.qti.chi.offline.so
 odm/lib64/hw/com.qti.chi.override.so;SYMLINK=odm/lib64/com.qti.chi.override.so
 odm/lib64/camx.device-impl.so
@@ -1860,7 +1862,7 @@ odm/etc/camera/xiaomi/rearsupernightsnapshot.json
 odm/etc/camera/xiaomi/satburstsnapshot.json
 odm/etc/camera/xiaomi/satpreview.json
 odm/etc/camera/xiaomi/satsettings.json
-odm/etc/camera/xiaomi/satsnapshot.json
+# satsnapshot.json is supplied by configs/camera/satsnapshot-hdr-compatible.json.
 odm/etc/camera/xiaomi/sdksnapshot.json
 odm/etc/camera/xiaomi/settings.json
 odm/etc/camera/xiaomi/simplepreview.json
@@ -2353,7 +2355,8 @@ odm/firmware/evass.b18
 odm/firmware/evass.b19
 odm/firmware/evass.mbn
 odm/firmware/evass.mdt
-# Display
+
+# Display Neoteric
 odm/lib64/hw/displayfeature.default.so
 odm/lib64/libMiDispDevManager.so
 odm/lib64/libadaptivehdr.so
@@ -2378,11 +2381,15 @@ odm/lib64/libsdr2hdr.so
 odm/lib64/libsre.so
 odm/lib64/libtruetone.so
 odm/lib64/libvideomode.so
+
+# Display A16 retained
 system_ext/lib64/vendor.display.color@1.0.so
 system_ext/lib64/vendor.display.color@1.1.so
 system_ext/lib64/vendor.display.color@1.2.so
 system_ext/lib64/vendor.display.color@1.3.so
 system_ext/lib64/vendor.display.postproc@1.0.so
+
+# Display Neoteric
 system_ext/lib64/vendor.qti.hardware.display.config-V1-ndk.so
 system_ext/lib64/vendor.qti.hardware.display.config-V10-ndk.so
 system_ext/lib64/vendor.qti.hardware.display.config-V11-ndk.so
@@ -2396,8 +2403,12 @@ system_ext/lib64/vendor.qti.hardware.display.config-V6-ndk.so
 system_ext/lib64/vendor.qti.hardware.display.config-V7-ndk.so
 system_ext/lib64/vendor.qti.hardware.display.config-V8-ndk.so
 system_ext/lib64/vendor.qti.hardware.display.config-V9-ndk.so
+
+# Display A16 retained
 system_ext/lib64/vendor.qti.hardware.qdutils_disp@1.0.so
 system_ext/lib64/vendor.xiaomi.hardware.displayfeature@1.0.so
+
+# Display Neoteric
 vendor/bin/hw/vendor.qti.hardware.display.allocator-service
 vendor/bin/hw/vendor.qti.hardware.display.color-service
 vendor/bin/hw/vendor.qti.hardware.display.composer-service
@@ -2409,6 +2420,8 @@ vendor/etc/init/vendor.xiaomi.hardware.displayfeature_aidl-service.rc
 vendor/etc/vintf/manifest/vendor.qti.hardware.display.allocator-service.xml
 vendor/etc/vintf/manifest/vendor.qti.hardware.display.composer-service3_v3.xml
 vendor/etc/vintf/manifest/vendor.xiaomi.hardware.displayfeature_aidl-service.xml
+
+# Display A16 retained
 vendor/lib64/egl/eglSubDriverAndroid.so
 vendor/lib64/egl/libEGL_adreno.so;SYMLINK=vendor/lib64/libEGL_adreno.so
 vendor/lib64/egl/libGLESv1_CM_adreno.so
@@ -2416,10 +2429,20 @@ vendor/lib64/egl/libGLESv2_adreno.so;SYMLINK=vendor/lib64/libGLESv2_adreno.so
 vendor/lib64/egl/libVkLayer_ADRENO_qprofiler.so
 vendor/lib64/egl/libq3dtools_adreno.so;SYMLINK=vendor/lib64/libq3dtools_adreno.so
 vendor/lib64/egl/libq3dtools_esx.so
+
+# Display Neoteric
 vendor/lib64/hw/gralloc.default.so
+
+# Display A16 retained
 vendor/lib64/hw/vulkan.adreno.so
+
+# Display Neoteric
 vendor/lib64/libBlAlgointf.so
+
+# Display A16 retained
 vendor/lib64/libadreno_utils.so
+
+# Display Neoteric
 vendor/lib64/libdfintf.so
 vendor/lib64/libdisplayconfig.qti.so
 vendor/lib64/libdisplaydebug.so
@@ -2430,10 +2453,18 @@ vendor/lib64/libgpu_tonemapper.so
 vendor/lib64/libgralloc.qti.so
 vendor/lib64/libgralloccore.so
 vendor/lib64/libgrallocutils.so
+
+# Display A16 retained
 vendor/lib64/libgsl.so
+
+# Display Neoteric
 vendor/lib64/libhistogram.so
 vendor/lib64/libintervmipc.so
+
+# Display A16 retained
 vendor/lib64/libllvm-glnext.so
+
+# Display Neoteric
 vendor/lib64/libmapperutils.so
 vendor/lib64/libmemutils.so
 vendor/lib64/libqservice.so
@@ -2454,8 +2485,12 @@ vendor/lib64/vendor.display.color@1.2.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.display.color@1.3.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.display.color@1.4.so
 vendor/lib64/vendor.display.color@1.5.so
+
+# Display A16 retained
 vendor/lib64/vendor.display.color@1.6.so
 vendor/lib64/vendor.display.color@1.7.so
+
+# Display Neoteric
 vendor/lib64/vendor.display.config@1.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.display.config@1.1.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.display.config@1.2.so;MODULE_SUFFIX=_vendor
@@ -2466,7 +2501,11 @@ vendor/lib64/vendor.display.config@2.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.display.postproc@1.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.qti.hardware.display.aiqe-V2-ndk.so
 vendor/lib64/vendor.qti.hardware.display.color-V1-ndk.so
+
+# Display A16 retained Composer V3 compatibility
 vendor/lib64/vendor.qti.hardware.display.composer3-V1-ndk.so
+
+# Display Neoteric
 vendor/lib64/vendor.qti.hardware.display.config-V1-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.qti.hardware.display.config-V10-ndk.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.qti.hardware.display.config-V11-ndk.so;MODULE_SUFFIX=_vendor
@@ -2485,7 +2524,8 @@ vendor/lib64/vendor.qti.hardware.qdutils_disp@1.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.xiaomi.hardware.display.mihwcextension-V1-ndk.so
 vendor/lib64/vendor.xiaomi.hardware.displayfeature@1.0.so;MODULE_SUFFIX=_vendor
 vendor/lib64/vendor.xiaomi.hardware.displayfeature_aidl-V2-ndk.so
-# Display configs
+
+# Display Neoteric configs
 odm/etc/display/B_Com_Gary_Gain.csv
 odm/etc/display/B_Com_Gary_Gain_mdss_dsi_o1_38_0c_0b_dsc_cmd.csv
 odm/etc/display/B_Com_Gary_Gain_mdss_dsi_o1_42_02_0a_dsc_cmd.csv
@@ -2504,11 +2544,17 @@ odm/etc/mdss_dsi_o1_42_02_0a_dsc_cmd_mi.xml
 vendor/etc/display/DPU1010.xml
 vendor/etc/display/DPU10__.xml
 vendor/etc/display/DPU11__.xml
+
+# Display A16 retained configs
 vendor/etc/display/DPU1230.xml
 vendor/etc/display/DPU1240.xml
+
+# Display Neoteric configs
 vendor/etc/display/DPU12__.xml
 vendor/etc/display/DPU9__.xml
 vendor/etc/display/advanced_sf_offsets.xml
+
+# Display A16 retained configs
 vendor/etc/display/backlight_calib_Sharp_qhd_cmd_mode_dsi_panel.xml
 vendor/etc/display/backlight_calib_Sharp_qhd_video_mode_dsi_panel.xml
 vendor/etc/display/backlight_calib_nt37801_amoled_cmd_mode_dsi_csot_panel_with_DSC.xml
@@ -2521,17 +2567,25 @@ vendor/etc/display/backlight_calib_vtdr6130_amoled_cmd_mode_dsi_visionox_panel_w
 vendor/etc/display/backlight_calib_vtdr6130_amoled_qsync_cmd_mode_dsi_visionox_panel_with_DSC.xml
 vendor/etc/display/backlight_calib_vtdr6130_amoled_qsync_video_mode_dsi_visionox_panel_with_DSC.xml
 vendor/etc/display/backlight_calib_vtdr6130_amoled_video_mode_dsi_visionox_panel_with_DSC.xml
+
+# Display Neoteric configs
 vendor/etc/display/camera_alignments.json
 vendor/etc/display/cpu_alignments.json
 vendor/etc/display/default_alignments.json
 vendor/etc/display/display_alignments.json
 vendor/etc/display/formats.json
 vendor/etc/display/graphics_alignments.json
+
+# Display A16 retained configs
 vendor/etc/display/nt37801_amoled_cmd_mode_dsi_csot_panel_with_DSC.json
 vendor/etc/display/nt37801_amoled_cmd_mode_dsi_csot_panel_with_DSC_CPHY.json
 vendor/etc/display/nt37801_amoled_video_mode_dsi_csot_panel_with_DSC.json
 vendor/etc/display/nt37801_amoled_video_mode_dsi_csot_panel_with_DSC_CPHY.json
+
+# Display Neoteric configs
 vendor/etc/display/pipe_config_DPU11__.xml
+
+# Display A16 retained configs
 vendor/etc/display/qdcm_calib_data_Sharp_2k_cmd_mode_qsync_dsi_panel.json
 vendor/etc/display/qdcm_calib_data_Sharp_2k_video_mode_qsync_dsi_panel.json
 vendor/etc/display/qdcm_calib_data_Sharp_4k_cmd_mode_dsc_dsi_panel.json
@@ -2553,7 +2607,11 @@ vendor/etc/display/qdcm_calib_data_vtdr6130_amoled_cmd_mode_dsi_visionox_panel_w
 vendor/etc/display/qdcm_calib_data_vtdr6130_amoled_qsync_cmd_mode_dsi_visionox_panel_with_DSC.json
 vendor/etc/display/qdcm_calib_data_vtdr6130_amoled_qsync_video_mode_dsi_visionox_panel_with_DSC.json
 vendor/etc/display/qdcm_calib_data_vtdr6130_amoled_video_mode_dsi_visionox_panel_with_DSC.json
+
+# Display Neoteric configs
 vendor/etc/display/sdm_display_resolution_extn.xml
+
+# Display A16 retained configs
 vendor/etc/display/sm8735p_sr_2x_y1280x720.dlc
 vendor/etc/display/sm8735p_sr_2x_y720x1280.dlc
 vendor/etc/display/sm8735p_sr_3x_y544x960.dlc
@@ -2561,6 +2619,8 @@ vendor/etc/display/sm8735p_sr_3x_y960x544.dlc
 vendor/etc/display/sm8735p_sr_4x_y544x544.dlc
 vendor/etc/display/sm8735p_sr_5x_y384x640.dlc
 vendor/etc/display/sm8735p_sr_5x_y640x384.dlc
+
+# Display Neoteric configs
 vendor/etc/display/sm8750_sr_1x_y1280x720.dlc
 vendor/etc/display/sm8750_sr_1x_y544x960.dlc
 vendor/etc/display/sm8750_sr_1x_y720x1280.dlc
@@ -2574,9 +2634,12 @@ vendor/etc/display/sm8750_sr_3x_y640x384.dlc
 vendor/etc/display/thermallevel_to_fps.xml
 vendor/etc/display/ubwc_alignments.json
 vendor/etc/display/video_alignments.json
+
+# Display A16 retained configs
 vendor/etc/display/vtdr6130_amoled_cmd_mode_dsi_visionox_panel_with_DSC.json
 vendor/etc/display/xiaomi_o1_38_0c_0b_cmd_mode_dsc_dsi_panel.json
-# Display firmware
+
+# Display A16 retained firmware
 vendor/gpu/kbc/sequence_manifest.bin
 vendor/gpu/kbc/sequence_manifest_a730.bin
 vendor/gpu/kbc/unified_kbcs_32.bin
@@ -2585,6 +2648,7 @@ vendor/gpu/kbc/unified_kbcs_64.bin
 vendor/gpu/kbc/unified_kbcs_64_a730.bin
 vendor/gpu/kbc/unified_ksqs.bin
 vendor/gpu/kbc/unified_ksqs_a730.bin
+
 # DPM
 vendor/lib64/vendor.qti.diaghal-V1-ndk.so
 system_ext/bin/dpmd
@@ -2644,7 +2708,8 @@ odm/etc/vintf/manifest/android.hardware.biometrics.face-v4.xml
 odm/lib64/hw/fingerprint.goodix_us.so
 odm/lib64/hw/fingerprint.qcom_us.so
 odm/lib64/libgf_hal.so
-odm/lib64/libqc_hal.so
+# Stock 303 QCOM ultrasonic TA name must remain fingerpr_xuan.
+odm/lib64/libqc_hal.so|d3c44995b3bc6bd3c43020c503340ab678402258
 system_ext/lib64/vendor.qti.hardware.fingerprint@1.0.so
 system_ext/lib64/vendor.xiaomi.hardware.fingerprintextension-V1-ndk.so
 system_ext/lib64/vendor.xiaomi.hardware.fingerprintextension@1.0.so
@@ -3291,12 +3356,9 @@ vendor/lib64/vendor.xiaomi.hardware.aidl.mtdservice-V1-ndk_platform.so
 # Secure element (power manager)
 vendor/lib64/vendor.qti.esepowermanager@1.0.so
 # Security
-odm/bin/hw/android.hardware.security.keymint-service.strongbox-thales
-odm/etc/init/android.hardware.security.keymint-service.strongbox-thales.rc
-odm/etc/vintf/manifest/android.hardware.security.keymint-service.strongbox-thales.xml
-odm/etc/vintf/manifest/android.hardware.security.sharedsecret-service.strongbox-thales.xml
-odm/lib64/libjc_keymint-thales.so
-odm/lib64/libjc_keymint_transport-thales.so
+# StrongBox is intentionally omitted on A16: the Thales service stays alive
+# but its SharedSecret binder returns DEAD_OBJECT during early boot, which blocks
+# Keystore2/credential availability. Keep the regular QTI TEE KeyMint and Weaver.
 vendor/bin/hw/android.hardware.security.keymint-service-qti
 vendor/etc/init/android.hardware.security.keymint-service-qti.rc
 vendor/etc/vintf/manifest/android.hardware.security.keymint-service-qti.xml
@@ -3710,7 +3772,8 @@ odm/lib64/mi_weaver.so
 # Wi-Fi
 system_ext/lib64/vendor.qti.hardware.wigig.netperftuner@1.0.so
 system_ext/lib64/vendor.qti.hardware.wigig.supptunnel@1.0.so
-vendor/bin/hw/android.hardware.wifi-service;MODULE_SUFFIX=_vendor
+vendor/bin/hw/android.hardware.wifi-service;MODULE_SUFFIX=_vendor|33695faa0a9d910d7da0b2c499bd7b746ed58d92
+vendor/lib64/libwifi-system-iface.so;MODULE_SUFFIX=_vendor|28fd044d28c62b3236f7efb0d17ca37e6521b7d0
 vendor/bin/hw/hostapd;MODULE_SUFFIX=_vendor
 vendor/bin/hw/wpa_supplicant;MODULE_SUFFIX=_vendor
 vendor/bin/cnss-daemon
@@ -3813,7 +3876,6 @@ vendor/lib64/vendor.qti.hardware.wifidisplaysession_aidl-V1-ndk.so
 vendor/lib64/vendor.qti.hardware.wifidisplaysessionl@1.0-halimpl.so
 # Miscellaneous
 odm/bin/hw/dvs-aidl-service
-odm/bin/hw/mfp-daemon
 odm/bin/hw/mifaced
 odm/bin/hw/misensor_camera
 odm/bin/hw/vendor.qti.hardware.lights.service
@@ -3970,7 +4032,6 @@ odm/etc/factory_cmd_config/modem.xml
 odm/etc/init/dvs-aidl-service.rc
 odm/etc/init/init.boled.lightsensor.rc
 odm/etc/init/init.cirrus.rc
-odm/etc/init/init.mfp-daemon.aidl.rc
 odm/etc/init/init.tfa.rc
 odm/etc/init/init.ti.rc
 odm/etc/init/init.vl53l8.rc
@@ -4011,7 +4072,6 @@ odm/etc/touch/dynamicrate.json
 odm/etc/touch/gameturbotool-control.json
 odm/etc/touch/gameturbotool-fastinput.json
 odm/etc/touch/gameturbotool.json
-odm/etc/vintf/manifest/AHBF-V3-service.xml
 odm/etc/vintf/manifest/dvs-aidl-service.xml
 odm/etc/vintf/manifest/fod-aidl.xml
 odm/etc/vintf/manifest/manifest_nfc_ese.xml
@@ -4276,7 +4336,8 @@ odm/lib64/bm5a79v08s13n89.bin
 odm/lib64/bm5a79v08s13n90.bin
 odm/lib64/camx.provider-impl.so
 odm/lib64/com.qti.chiusecaseselector.so
-odm/lib64/com.qti.settings.sm8750.so
+# Stock 303: settings structure layout must match camera.qcom/CHi.
+odm/lib64/com.qti.settings.sm8750.so|905fa1569ecf22b022ec8f414641803446cb1b71
 odm/lib64/com.qualcomm.mcx.distortionmapper.so
 odm/lib64/com.qualcomm.mcx.linearmapper.so
 odm/lib64/com.qualcomm.mcx.nonlinearmapper.so
@@ -4371,7 +4432,7 @@ odm/lib64/libmialgo_ellc.so
 odm/lib64/libmialgo_jdd_sn.so
 odm/lib64/libmialgo_snsc.so
 odm/lib64/libmialgoengine_custom.so
-odm/lib64/libmicamera_hal_policy.so
+odm/lib64/libmicamera_hal_policy.so|6983f90a26eba1d948ae13b78eea841cf69c73d9
 odm/lib64/libmicertkey.so
 odm/lib64/libmiface.so
 odm/lib64/libmihapticv1.so
@@ -5036,6 +5097,7 @@ vendor/firmware/gen80000_sqe.fw
 vendor/firmware/gen80600_gmu.bin
 vendor/firmware/gmu_gen70900.bin
 vendor/firmware/wigig.ini
+vendor/lib64/hw/android.hardware.bluetooth.audio_sw.so
 vendor/lib64/hw/libaudiocorehal.default.so
 vendor/lib64/hw/libaudiocorehal.qti.so
 vendor/lib64/hw/libaudioeffecthal.qti.so
@@ -5121,7 +5183,8 @@ vendor/lib64/libappclassifier.so
 vendor/lib64/libaudiochargerlistener.so
 vendor/lib64/libaudiocloudctrl.so
 vendor/lib64/libaudioplatformconverter.qti.so
-vendor/lib64/libaudioserviceexampleimpl.so:vendor/lib64/libaudioserviceexampleimpl-neoteric.so;DISABLE_DEPS;FIX_SONAME
+vendor/lib64/libaudioserviceexampleimpl.so;MODULE_SUFFIX=_vendor
+vendor/lib64/libaudioutils.so;MODULE_SUFFIX=_vendor
 vendor/lib64/libbaa_BasedOnCC_VolDown.so
 vendor/lib64/libbaa_ChargeInfo.so
 vendor/lib64/libbaa_ClosedSourceClass.so
@@ -5152,6 +5215,10 @@ vendor/lib64/libclstc_tm.so
 vendor/lib64/libcneoplookup.so
 vendor/lib64/libcneqmiutils.so
 vendor/lib64/libcodec2_soft_ac4dec.so
+vendor/lib64/libcodec2_soft_aivc_dec.so
+vendor/lib64/libcodec2_soft_aivc_enc.so
+vendor/lib64/lib_AIVC_decoder.so
+vendor/lib64/lib_AIVC_encoder.so
 vendor/lib64/libcodec2_soft_aihc_dec.so
 vendor/lib64/libcodec2_soft_aihc_enc.so
 vendor/lib64/libcodec2_soft_ddpdec.so

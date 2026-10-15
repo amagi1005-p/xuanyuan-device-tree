@@ -1,0 +1,89 @@
+cc_defaults {
+    name: "xuanyuan_stock_codec_defaults",
+    compile_multilib: "64",
+    strip: { none: true },
+    check_elf_files: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "liblhdc-xuanyuan-stock",
+    stem: "liblhdc",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system/lib64/liblhdc.so"],
+}
+
+cc_prebuilt_library_shared {
+    name: "liblhdcv5-xuanyuan-stock",
+    stem: "liblhdcv5",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system/lib64/liblhdcv5.so"],
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.dolby.hardware.dms@2.0-xuanyuan-stock",
+    stem: "vendor.dolby.hardware.dms@2.0",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system/lib64/vendor.dolby.hardware.dms@2.0.so"],
+}
+cc_prebuilt_library_shared {
+    name: "libaivsopus-xuanyuan-stock",
+    stem: "libaivsopus",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system_ext/lib64/libaivsopus.so"],
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libmimediacodec-xuanyuan-stock",
+    stem: "libmimediacodec",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system_ext/lib64/libmimediacodec.so"],
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libqape.qti-xuanyuan-stock",
+    stem: "libqape.qti",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system_ext/lib64/libqape.qti.so"],
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libtelecodec_android-xuanyuan-stock",
+    stem: "libtelecodec_android",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system_ext/lib64/libtelecodec_android.so"],
+    system_ext_specific: true,
+}
+cc_prebuilt_library_shared {
+    name: "libvideocodeccapability-xuanyuan-stock",
+    stem: "libvideocodeccapability",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system_ext/lib64/libvideocodeccapability.so"],
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libvideocodecinfo-xuanyuan-stock",
+    stem: "libvideocodecinfo",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system_ext/lib64/libvideocodecinfo.so"],
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.dolby.dvs-V1-ndk-xuanyuan-stock",
+    stem: "vendor.dolby.dvs-V1-ndk",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system_ext/lib64/vendor.dolby.dvs-V1-ndk.so"],
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "vendor.xiaomi.hardware.videoservice-V2-ndk-xuanyuan-stock",
+    stem: "vendor.xiaomi.hardware.videoservice-V2-ndk",
+    defaults: ["xuanyuan_stock_codec_defaults"],
+    srcs: ["system_ext/lib64/vendor.xiaomi.hardware.videoservice-V2-ndk.so"],
+    system_ext_specific: true,
+}

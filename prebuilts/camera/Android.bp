@@ -1,0 +1,110 @@
+cc_prebuilt_library_shared {
+    name: "libui-camera303-xuanyuan",
+    stem: "libui",
+    srcs: ["lib64/libui.so"],
+    device_specific: true,
+    relative_install_path: "camera303-compat",
+    compile_multilib: "64",
+    strip: { none: true },
+    shared_libs: [
+        "//vendor/xiaomi/xuanyuan:android.hardware.graphics.common-V5-ndk_vendor",
+        "//vendor/xiaomi/xuanyuan:android.hardware.graphics.allocator-V2-ndk_vendor",
+        "android.hardware.graphics.allocator@2.0",
+        "android.hardware.graphics.allocator@3.0",
+        "android.hardware.graphics.allocator@4.0",
+        "android.hardware.graphics.common@1.2",
+        "android.hardware.graphics.mapper@2.0",
+        "android.hardware.graphics.mapper@2.1",
+        "android.hardware.graphics.mapper@3.0",
+        "android.hardware.graphics.mapper@4.0",
+        "libbase", "libbinder_ndk", "libcutils", "libgralloctypes-camera303-xuanyuan",
+        "libhidlbase", "libsync", "libutils", "liblog", "libvndksupport",
+        "libc++", "libc", "libm", "libdl",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libcamxexternalformatutils-vendor-xuanyuan",
+    stem: "libcamxexternalformatutils",
+    srcs: ["lib64/libcamxexternalformatutils.so"],
+    vendor: true,
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+cc_library_shared {
+    name: "libcamera_heap_compat",
+    srcs: ["camera_heap_compat.c"],
+    device_specific: true,
+    compile_multilib: "64",
+    stl: "none",
+    cflags: ["-Wall", "-Werror"],
+}
+
+cc_defaults {
+    name: "camera303-odm-graphics-defaults",
+    device_specific: true,
+    compile_multilib: "64",
+    strip: { none: true },
+}
+
+cc_prebuilt_library_shared {
+    name: "mapper.qti-camera303-xuanyuan",
+    defaults: ["camera303-odm-graphics-defaults"],
+    stem: "mapper.qti",
+    relative_install_path: "hw",
+    srcs: ["lib64/hw/mapper.qti.so"],
+    shared_libs: [
+        "liblog", "libcutils", "libutils", "libhidlbase", "//vendor/xiaomi/xuanyuan:libgrallocutils",
+        "//vendor/xiaomi/xuanyuan:libgralloccore", "libgralloctypes-camera303-xuanyuan", "libsync",
+        "libdmabufheap", "//vendor/xiaomi/xuanyuan:android.hardware.graphics.allocator-V2-ndk_vendor",
+        "libvndksupport", "libc++", "libc", "libm", "libdl",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libtinyxml2-camera303-xuanyuan",
+    defaults: ["camera303-odm-graphics-defaults"],
+    stem: "libtinyxml2",
+    srcs: ["lib64/libtinyxml2.so"],
+    shared_libs: ["liblog", "libc++", "libc", "libm", "libdl"],
+}
+
+cc_prebuilt_library_shared {
+    name: "libgralloctypes-camera303-xuanyuan",
+    defaults: ["camera303-odm-graphics-defaults"],
+    stem: "libgralloctypes",
+    srcs: ["lib64/libgralloctypes.so"],
+    shared_libs: [
+        "//vendor/xiaomi/xuanyuan:android.hardware.graphics.common-V5-ndk_vendor", "android.hardware.graphics.mapper@4.0",
+        "libhidlbase", "liblog", "libc++", "libc", "libm", "libdl",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "libmapperutils-camera303-xuanyuan",
+    defaults: ["camera303-odm-graphics-defaults"],
+    stem: "libmapperutils",
+    srcs: ["lib64/libmapperutils.so"],
+    shared_libs: [
+        "liblog", "libcutils", "libutils", "libgralloctypes-camera303-xuanyuan",
+        "//vendor/xiaomi/xuanyuan:libgrallocutils", "libhidlbase", "android.hardware.graphics.common@1.2",
+        "android.hardware.graphics.mapper@4.0", "libbinder_ndk", "//vendor/xiaomi/xuanyuan:libgralloc.qti",
+        "libutilscallstack", "//vendor/xiaomi/xuanyuan:android.hardware.graphics.allocator-V2-ndk_vendor",
+        "libvndksupport", "libc++", "libc", "libm", "libdl",
+    ],
+}
+
+cc_prebuilt_library_shared {
+    name: "snapalloc-impl-camera303-xuanyuan",
+    defaults: ["camera303-odm-graphics-defaults"],
+    stem: "vendor.qti.hardware.display.snapalloc-impl",
+    srcs: ["lib64/vendor.qti.hardware.display.snapalloc-impl.so"],
+    shared_libs: [
+        "liblog", "libcutils", "libutils", "libbase", "libjsoncpp", "libdmabufheap",
+        "libvmmem", "libsync", "libc++", "libc", "libm", "libdl",
+    ],
+}

@@ -5,6 +5,16 @@
 
 DEVICE_PATH := device/xiaomi/xuanyuan
 
+# Stock QCOM ultrasonic HAL uses fingerprint_device V2, including extCmd at
+# offset 0xf0. Keep the source UDFPS handler consistent with the AIDL wrapper.
+SOONG_CONFIG_NAMESPACES += XIAOMI_BIOMETRICS_FINGERPRINT
+SOONG_CONFIG_XIAOMI_BIOMETRICS_FINGERPRINT += IMPL_VER
+SOONG_CONFIG_XIAOMI_BIOMETRICS_FINGERPRINT_IMPL_VER := V2
+
+# Stock audio blobs share install paths with AOSP vendor variants. The stock
+# prebuilt rules are emitted last and must provide the vendor image copies.
+BUILD_BROKEN_DUP_RULES := true
+
 # A/B
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
@@ -47,6 +57,14 @@ BOARD_KERNEL_PAGESIZE := 4096
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 BOARD_RAMDISK_USE_LZ4 := true
+# Product is not mounted in recovery, so replace its dangling adb_keys link.
+# Keep this development-host authorization restricted to debuggable builds.
+ifneq ($(filter eng userdebug,$(TARGET_BUILD_VARIANT)),)
+BOARD_RECOVERY_IMAGE_PREPARE += \
+    rm -f $(TARGET_RECOVERY_ROOT_OUT)/adb_keys && \
+    cp $(DEVICE_PATH)/recovery/adb_keys $(TARGET_RECOVERY_ROOT_OUT)/adb_keys && \
+    chmod 0644 $(TARGET_RECOVERY_ROOT_OUT)/adb_keys
+endif
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
@@ -57,10 +75,12 @@ TARGET_KERNEL_SOURCE := kernel/xiaomi/generic
 TARGET_FORCE_PREBUILT_KERNEL := true
 ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
 TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
+TARGET_PREBUILT_KERNEL_HEADERS := $(DEVICE_PATH)/prebuilts/prebuilt_kernel_headers.tar.gz
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilts/dtb.img
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 BOARD_INCLUDE_DTB_IN_BOOTIMG := 
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo.img
+BOARD_PREBUILT_DTBOIMAGE_PRESIGNED := true
 BOARD_KERNEL_SEPARATED_DTBO := 
 BOARD_PREBUILT_VENDOR_BOOTIMAGE := $(DEVICE_PATH)/prebuilts/vendor_boot.img
 BOARD_PREBUILT_VENDOR_DLKMIMAGE := $(DEVICE_PATH)/prebuilts/vendor_dlkm.img
@@ -98,8 +118,10 @@ TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
 TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
 
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := erofs
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := erofs
+# Keep add-on ZIP targets writable and leave room for the 2.1 GB stock NikGapps payload.
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 2250000000
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := erofs
 BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := erofs
@@ -138,10 +160,10 @@ BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_BOOT_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 4
-BOARD_AVB_DTBO_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_DTBO_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_DTBO_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-BOARD_AVB_DTBO_ROLLBACK_INDEX_LOCATION := 3
+# pre-signed stock DTBO: BOARD_AVB_DTBO_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+# pre-signed stock DTBO: BOARD_AVB_DTBO_ALGORITHM := SHA256_RSA4096
+# pre-signed stock DTBO: BOARD_AVB_DTBO_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+# pre-signed stock DTBO: BOARD_AVB_DTBO_ROLLBACK_INDEX_LOCATION := 3
 BOARD_AVB_RECOVERY_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_RECOVERY_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
@@ -168,3 +190,6 @@ DEVICE_MANIFEST_KERA_FILES := $(DEVICE_PATH)/vintf/manifest_kera.xml
 DEVICE_MANIFEST_TUNA_FILES := $(DEVICE_PATH)/vintf/manifest_tuna.xml
 
 ODM_MANIFEST_FILES := $(DEVICE_PATH)/vintf/manifest_odm.xml
+
+# Wi-Fi VINTF fragment (Android 16 build rules)
+DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/configs/wifi/android.hardware.wifi-service.xml

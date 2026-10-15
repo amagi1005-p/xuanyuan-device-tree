@@ -4,6 +4,7 @@ service xuanyuan-bootdiag /system/bin/sh /system_ext/bin/bootdiag.sh
     group root system log readproc
     seclabel u:r:shell:s0
     disabled
+    oneshot
 
 on post-fs
     mkdir /metadata/bootdiag 0777 root root

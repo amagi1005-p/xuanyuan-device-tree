@@ -1,0 +1,403 @@
+// The vendor CamX loader dlopens this absolute path; the SoC HAL lives in ODM.
+install_symlink {
+    name: "xuanyuan_camera_sm8750_vendor_path",
+    soc_specific: true,
+    installed_location: "lib64/hw/camera.qcom.sm8750.so",
+    symlink_target: "/odm/lib64/hw/camera.qcom.sm8750.so",
+    required: ["camera.qcom.sm8750"],
+}
+
+cc_prebuilt_binary {
+    name: "vibratorfeature-wrapper-neoteric",
+    enabled: true,
+    stem: "vibratorfeature-wrapper",
+    srcs: ["odm/bin/hw/vibratorfeature-wrapper"],
+    device_specific: true,
+    relative_install_path: "hw",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    init_rc: ["odm/etc/init/vibratorfeature-wrapper.rc"],
+    vintf_fragments: ["odm/etc/vintf/manifest/android.hardware.vibrator.xml"],
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_kiwi_v2_cfg",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/kiwi_v2/WCNSS_qcom_cfg.ini",
+    symlink_target: "/vendor/etc/wifi/kiwi_v2/WCNSS_qcom_cfg.ini",
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_kiwi_v2_mac",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/kiwi_v2/wlan_mac.bin",
+    symlink_target: "/mnt/vendor/persist/wlan/wlan_mac.bin",
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_peach_cfg",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/peach/WCNSS_qcom_cfg.ini",
+    symlink_target: "/vendor/etc/wifi/peach/WCNSS_qcom_cfg.ini",
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_peach_mac",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/peach/wlan_mac.bin",
+    symlink_target: "/mnt/vendor/persist/wlan/wlan_mac.bin",
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_peach_v2_cfg",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/peach_v2/WCNSS_qcom_cfg.ini",
+    symlink_target: "/vendor/etc/wifi/peach_v2/WCNSS_qcom_cfg.ini",
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_peach_v2_mac",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/peach_v2/wlan_mac.bin",
+    symlink_target: "/mnt/vendor/persist/wlan/wlan_mac.bin",
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_qca6750_cfg",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/qca6750/WCNSS_qcom_cfg.ini",
+    symlink_target: "/vendor/etc/wifi/qca6750/WCNSS_qcom_cfg.ini",
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_qca6750_mac",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/qca6750/wlan_mac.bin",
+    symlink_target: "/mnt/vendor/persist/wlan/wlan_mac.bin",
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_wcn7750_cfg",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/wcn7750/WCNSS_qcom_cfg.ini",
+    symlink_target: "/vendor/etc/wifi/wcn7750/WCNSS_qcom_cfg.ini",
+}
+
+install_symlink {
+    name: "xuanyuan_wlan_wcn7750_mac",
+    soc_specific: true,
+    installed_location: "firmware/wlan/qca_cld/wcn7750/wlan_mac.bin",
+    symlink_target: "/mnt/vendor/persist/wlan/wlan_mac.bin",
+}
+
+cc_prebuilt_library_shared {
+    name: "android.hardware.biometrics.common.config-neoteric",
+    stem: "android.hardware.biometrics.common.config",
+    srcs: ["vendor/lib64/android.hardware.biometrics.common.config.so"],
+    installable: false,
+    soc_specific: true,
+    compile_multilib: "64",
+    strip: { none: true },
+    check_elf_files: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "android.hardware.biometrics.common.thread-neoteric",
+    stem: "android.hardware.biometrics.common.thread",
+    srcs: ["vendor/lib64/android.hardware.biometrics.common.thread.so"],
+    installable: false,
+    soc_specific: true,
+    compile_multilib: "64",
+    strip: { none: true },
+    check_elf_files: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "android.hardware.biometrics.common.util-neoteric",
+    stem: "android.hardware.biometrics.common.util",
+    srcs: ["vendor/lib64/android.hardware.biometrics.common.util.so"],
+    installable: false,
+    soc_specific: true,
+    compile_multilib: "64",
+    strip: { none: true },
+    check_elf_files: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "libudfpshandler",
+    enabled: true,
+    stem: "libudfpshandler",
+    srcs: ["vendor/lib64/libudfpshandler.so"],
+    soc_specific: true,
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "fingerprint.qcom_us.default-neoteric",
+    enabled: true,
+    stem: "fingerprint.qcom_us.default",
+    srcs: ["odm/lib64/hw/fingerprint.qcom_us.default.so"],
+    device_specific: true,
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+prebuilt_etc {
+    name: "init.mi_udfps-neoteric",
+    enabled: true,
+    src: "vendor/etc/init/hw/init.mi_udfps.rc",
+    filename: "init.mi_udfps.rc",
+    sub_dir: "init/hw",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "android.hardware.fingerprint.permission-neoteric",
+    enabled: true,
+    src: "vendor/etc/permissions/android.hardware.fingerprint.xml",
+    filename: "android.hardware.fingerprint.xml",
+    sub_dir: "permissions",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "qti_fingerprint_interface.permission-neoteric",
+    enabled: true,
+    src: "vendor/etc/permissions/qti_fingerprint_interface.xml",
+    filename: "qti_fingerprint_interface.xml",
+    sub_dir: "permissions",
+    soc_specific: true,
+}
+
+cc_prebuilt_binary {
+    name: "android.hardware.biometrics.fingerprint-service.xiaomi-neoteric",
+    enabled: true,
+    stem: "android.hardware.biometrics.fingerprint-service.xiaomi",
+    srcs: ["vendor/bin/hw/android.hardware.biometrics.fingerprint-service.xiaomi"],
+    soc_specific: true,
+    relative_install_path: "hw",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    init_rc: ["vendor/etc/init/android.hardware.biometrics.fingerprint-service.xiaomi.rc"],
+    vintf_fragments: ["vendor/etc/vintf/manifest/android.hardware.biometrics.fingerprint-service.xiaomi.xml"],
+    required: [
+        "android.hardware.biometrics.common.config.vendor",
+        "android.hardware.biometrics.common.thread.vendor",
+        "android.hardware.biometrics.common.util.vendor",
+        "libudfpshandler",
+        "fingerprint.qcom_us.default-neoteric",
+        "init.mi_udfps-neoteric",
+        "android.hardware.fingerprint.permission-neoteric",
+        "qti_fingerprint_interface.permission-neoteric",
+    ],
+}
+
+// Camera feature declarations retained from the known-good Neoteric vendor.
+prebuilt_etc {
+    name: "xuanyuan_camera_perm_android_hardware_camera_concurrent_xml",
+    enabled: false,
+    src: "vendor/etc/permissions/android.hardware.camera.concurrent.xml",
+    filename: "android.hardware.camera.concurrent.xml",
+    sub_dir: "permissions",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_camera_perm_android_hardware_camera_flash_autofocus_xml",
+    enabled: false,
+    src: "vendor/etc/permissions/android.hardware.camera.flash-autofocus.xml",
+    filename: "android.hardware.camera.flash-autofocus.xml",
+    sub_dir: "permissions",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_camera_perm_android_hardware_camera_front_xml",
+    enabled: false,
+    src: "vendor/etc/permissions/android.hardware.camera.front.xml",
+    filename: "android.hardware.camera.front.xml",
+    sub_dir: "permissions",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_camera_perm_android_hardware_camera_full_xml",
+    enabled: false,
+    src: "vendor/etc/permissions/android.hardware.camera.full.xml",
+    filename: "android.hardware.camera.full.xml",
+    sub_dir: "permissions",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_camera_perm_android_hardware_camera_raw_xml",
+    enabled: false,
+    src: "vendor/etc/permissions/android.hardware.camera.raw.xml",
+    filename: "android.hardware.camera.raw.xml",
+    sub_dir: "permissions",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_camera_perm_camera_extensions_xml",
+    enabled: false,
+    src: "vendor/etc/permissions/camera_extensions.xml",
+    filename: "camera_extensions.xml",
+    sub_dir: "permissions",
+    soc_specific: true,
+}
+
+// Known-good Neoteric USB HAL and hardware feature compatibility.
+install_symlink {
+    name: "xuanyuan_wlanmdsp_otaupdate",
+    soc_specific: true,
+    installed_location: "firmware/wlanmdsp.otaupdate",
+    symlink_target: "/data/vendor/firmware/wlanmdsp.mbn",
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+prebuilt_etc {
+    name: "xuanyuan_vibratorfeature_permission",
+    src: "vendor/etc/permissions/vendor.hardware.vibratorfeature-permission.xml",
+    filename: "vendor.hardware.vibratorfeature-permission.xml",
+    sub_dir: "permissions",
+    soc_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_wifi_wcn7760_config",
+    src: "vendor/etc/wifi/wcn7760/WCNSS_qcom_cfg.ini",
+    filename: "WCNSS_qcom_cfg.ini",
+    sub_dir: "wifi/wcn7760",
+    soc_specific: true,
+}
+
+cc_prebuilt_binary {
+    name: "android.hardware.usb-service.qti-neoteric",
+    installable: false,
+    stem: "android.hardware.usb-service.qti",
+    srcs: ["vendor/bin/hw/android.hardware.usb-service.qti"],
+    soc_specific: true,
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    shared_libs: [
+        "android.hardware.usb-V3-ndk",
+        "libbase",
+        "libbinder_ndk",
+        "libcutils",
+        "liblog",
+        "libutils",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
+    init_rc: ["vendor/etc/init/android.hardware.usb-service.qti-neoteric.rc"],
+    vintf_fragments: ["vendor/etc/vintf/manifest/android.hardware.usb-service.qti-neoteric.xml"],
+}
+
+cc_prebuilt_binary {
+    name: "android.hardware.usb.gadget-service.qti-neoteric",
+    installable: false,
+    stem: "android.hardware.usb.gadget-service.qti",
+    srcs: ["vendor/bin/hw/android.hardware.usb.gadget-service.qti"],
+    soc_specific: true,
+    relative_install_path: "hw",
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+    shared_libs: [
+        "android.hardware.usb.gadget@1.1",
+        "android.hardware.usb.gadget-V1-ndk",
+        "libbase",
+        "libbinder_ndk",
+        "libcutils",
+        "liblog",
+        "libutils",
+        "libc++",
+        "libc",
+        "libm",
+        "libdl",
+    ],
+    init_rc: ["vendor/etc/init/android.hardware.usb.gadget-service.qti-neoteric.rc"],
+    vintf_fragments: ["vendor/etc/vintf/manifest/android.hardware.usb.gadget-service.qti-neoteric.xml"],
+}
+
+// Match the stock vendor camera links into ODM.
+install_symlink {
+    name: "xuanyuan_vendor_camera_camera_qcom_so",
+    soc_specific: true,
+    installed_location: "lib64/hw/camera.qcom.so",
+    symlink_target: "/odm/lib64/hw/camera.qcom.so",
+}
+
+install_symlink {
+    name: "xuanyuan_vendor_camera_aon_front_i_1_pb",
+    soc_specific: true,
+    installed_location: "lib64/camera/aon_front_i_1.pb",
+    symlink_target: "/odm/lib64/camera/aon_front_i_1.pb",
+}
+
+install_symlink {
+    name: "xuanyuan_vendor_camera_aon_front_ii_1_pb",
+    soc_specific: true,
+    installed_location: "lib64/camera/aon_front_ii_1.pb",
+    symlink_target: "/odm/lib64/camera/aon_front_ii_1.pb",
+}
+
+install_symlink {
+    name: "xuanyuan_vendor_camera_aon_rear_i_2_pb",
+    soc_specific: true,
+    installed_location: "lib64/camera/aon_rear_i_2.pb",
+    symlink_target: "/odm/lib64/camera/aon_rear_i_2.pb",
+}
+
+install_symlink {
+    name: "xuanyuan_vendor_camera_aon_rear_ii_2_pb",
+    soc_specific: true,
+    installed_location: "lib64/camera/aon_rear_ii_2.pb",
+    symlink_target: "/odm/lib64/camera/aon_rear_ii_2.pb",
+}
+
+install_symlink {
+    name: "xuanyuan_vendor_camera_bitmlconfig_bin",
+    soc_specific: true,
+    installed_location: "lib64/camera/bitmlconfig.bin",
+    symlink_target: "/odm/lib64/camera/bitmlconfig.bin",
+}
+
+install_symlink {
+    name: "xuanyuan_vendor_camera_com_qti_ofe_profiledb_default_bin",
+    soc_specific: true,
+    installed_location: "lib64/camera/com.qti.ofe.profiledb.default.bin",
+    symlink_target: "/odm/lib64/camera/com.qti.ofe.profiledb.default.bin",
+}

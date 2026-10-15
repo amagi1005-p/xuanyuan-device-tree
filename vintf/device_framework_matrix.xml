@@ -1,5 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
 <compatibility-matrix version="9.0" type="framework">
+    <hal format="hidl" optional="true">
+        <name>android.hidl.manager</name>
+        <version>1.2</version>
+        <interface>
+            <name>IServiceManager</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
     <hal format="aidl" optional="true">
         <name>android.hardware.vibrator</name>
         <interface>
@@ -319,7 +327,7 @@
     </hal>
     <hal format="aidl" optional="true">
         <name>vendor.qti.hardware.qasr</name>
-        <version>2</version>
+        <version>1-2</version>
         <interface>
             <name>IQasr</name>
             <instance>default</instance>
@@ -928,7 +936,7 @@
     </hal>
     <hal format="aidl" optional="true">
         <name>vendor.xiaomi.hardware.videoservice</name>
-        <version>7</version>
+        <version>4-7</version>
         <interface>
             <name>IVideoService</name>
             <instance>default</instance>

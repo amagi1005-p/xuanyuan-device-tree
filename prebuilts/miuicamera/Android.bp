@@ -1,0 +1,121 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+java_import {
+    name: "miui-cameraopt",
+    jars: ["system_ext/framework/miui-cameraopt.jar"],
+    system_ext_specific: true,
+    installable: true,
+}
+
+android_app_import {
+    name: "MiuiCamera",
+    apk: "product/priv-app/MiuiCamera/MiuiCamera.apk",
+    presigned: true,
+    preprocessed: true,
+    // Preserve the existing APK v2 signature; this prebuilt contains compressed DEX.
+    skip_preprocessed_apk_checks: true,
+    privileged: true,
+    product_specific: true,
+    dex_preopt: {
+        enabled: false,
+    },
+    optional_uses_libs: ["miui-cameraopt"],
+    enforce_uses_libs: false,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_miuicamera_device_features",
+    src: "product/etc/device_features/xuanyuan.xml",
+    filename: "xuanyuan.xml",
+    sub_dir: "device_features",
+    product_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_miuicamera_privapp_permissions",
+    src: "product/etc/permissions/privapp-permissions-com.android.camera.xml",
+    filename: "privapp-permissions-com.android.camera.xml",
+    sub_dir: "permissions",
+    product_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_miuicamera_cameraopt_json",
+    src: "system_ext/etc/cameraopt.json",
+    filename: "cameraopt.json",
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_miuicamera_cameraopt_perf_json",
+    src: "system_ext/etc/cameraopt_perf.json",
+    filename: "cameraopt_perf.json",
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_miuicamera_cameraopt_reclaim_json",
+    src: "system_ext/etc/cameraopt_reclaim.json",
+    filename: "cameraopt_reclaim.json",
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_miuicamera_cameraopt_thirdparty_json",
+    src: "system_ext/etc/cameraopt_thirdParty.json",
+    filename: "cameraopt_thirdParty.json",
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_miuicamera_cameraopt_permission",
+    src: "system_ext/etc/permissions/miui-cameraopt.xml",
+    filename: "miui-cameraopt.xml",
+    sub_dir: "permissions",
+    system_ext_specific: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_miuicamera_task_profiles",
+    src: "system_ext/etc/task_profiles_cameraopt.json",
+    filename: "task_profiles_cameraopt.json",
+    system_ext_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libcameraopt_miuicamera_system_ext",
+    stem: "libcameraopt",
+    srcs: ["system_ext/lib64/libcameraopt.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "libcameraopt_jni_miuicamera_system_ext",
+    stem: "libcameraopt_jni",
+    srcs: ["system_ext/lib64/libcameraopt_jni.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}
+
+cc_prebuilt_library_shared {
+    name: "libcamera_algoup_jni_xiaomi_miuicamera_system_ext",
+    stem: "libcamera_algoup_jni.xiaomi",
+    srcs: ["system_ext/lib64/libcamera_algoup_jni.xiaomi.so"],
+    system_ext_specific: true,
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}

@@ -57,10 +57,10 @@ case "$target" in
         setprop vendor.display.timed_render_enable 1
         setprop vendor.gralloc.hw_supports_ubwcp 0
         setprop vendor.gralloc.enable_snapalloc 1
-        setprop vendor.display.enable_idle_content_fps_hint 1
-        setprop vendor.display.enable_optimal_refresh_rate 1
+        setprop vendor.display.enable_idle_content_fps_hint 0
+        setprop vendor.display.enable_optimal_refresh_rate 0
         setprop vendor.display.refresh_rate_changeable 1
-        setprop debug.sf.enable_vrr_config 1
+        setprop debug.sf.enable_vrr_config 0
         setprop vendor.display.enable_hal_self_refresh 1
         setprop vendor.display.cpu_cluster_boost_mask 3
         ;;

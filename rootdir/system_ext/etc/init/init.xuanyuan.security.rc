@@ -1,0 +1,12 @@
+# Xiaomi 15 Ultra security HAL synchronization.
+# The stock QTI KeyMint/Gatekeeper services can come up with stale operation
+# state during early boot. Re-sync the vendor HALs after /data is available,
+# then restart their framework clients only after both HALs are ready.
+
+on post-fs-data
+    restart vendor.keymint-qti
+    restart vendor.gatekeeper_default
+    wait_for_prop init.svc.vendor.keymint-qti running
+    wait_for_prop init.svc.vendor.gatekeeper_default running
+    restart keystore2
+    restart gatekeeperd

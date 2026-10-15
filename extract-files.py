@@ -19,7 +19,11 @@ namespace_imports = [
     'hardware/qcom-caf/wlan',
 ]
 
+# Dependency-only stock ABI snapshots; installed source providers are verified
+# separately by the runtime ELF check before packaging.
 vendor_suffix_libs = (
+    'android.hardware.bluetooth.audio-impl',
+    'libbluetooth_audio_session_aidl',
     'android.frameworks.cameraservice.common-V1-ndk',
     'android.frameworks.cameraservice.device-V2-ndk',
     'android.frameworks.cameraservice.service-V2-ndk',
@@ -30,7 +34,6 @@ vendor_suffix_libs = (
     'android.hardware.audio.effect-V2-ndk',
     'android.hardware.biometrics.fingerprint-V5-ndk',
     'android.hardware.bluetooth.audio-V4-ndk',
-    'android.hardware.bluetooth.audio-impl',
     'android.hardware.bluetooth.audio@2.0-impl',
     'android.hardware.camera.common-V1-ndk',
     'android.hardware.camera.device-V1-ndk',
@@ -46,6 +49,7 @@ vendor_suffix_libs = (
     'android.hardware.health-service.qti',
     'android.hardware.security.sharedsecret-V2-ndk',
     'android.hardware.wifi-service',
+    'libwifi-system-iface',
     'android.hardware.security.keymint-V3-ndk',
     'android.media.audio.common.types-V2-ndk',
     'android.media.audio.common.types-V3-ndk',
@@ -53,11 +57,17 @@ vendor_suffix_libs = (
     'android.hardware.sensors-V2-ndk',
     'hostapd',
     'libbluetooth_audio_session',
-    'libbluetooth_audio_session_aidl',
+    'libaudio_aidl_conversion_common_ndk',
+    'libaudioroute',
+    'libaudioserviceexampleimpl',
+    'libaudioutils',
+    'libtinyalsa',
     'lib_android_keymaster_keymint_utils',
     'libcamera2ndk_vendor',
     'libsensorndkbridge',
     'vendor.xiaomi.hardware.camera.injection-V1-ndk',
+    'vendor.qti.hardware.data.dataactivity-V1-ndk',
+    'vendor.qti.hardware.data.ka-V1-ndk',
     'wpa_supplicant',
 )
 
@@ -83,18 +93,17 @@ non_installable_modules = (
     'android.hardware.security.keymint-V3-ndk_vendor',
     'android.hardware.security.sharedsecret-V2-ndk_vendor',
     'android.hardware.sensors-V2-ndk_vendor',
-    'android.hardware.wifi-service_vendor',
+    'android.hardware.usb-service.qti',
+    'android.hardware.usb.gadget-service.qti',
     'android.hardware.audio.common-V3-ndk_vendor',
     'android.hardware.audio.core-V2-ndk_vendor',
     'android.hardware.audio.core.sounddose-V1-ndk_vendor',
     'android.hardware.audio.effect-V2-ndk_vendor',
     'android.hardware.bluetooth.audio-V4-ndk_vendor',
-    'android.hardware.bluetooth.audio-impl_vendor',
     'android.media.audio.common.types-V2-ndk_vendor',
     'android.media.audio.common.types-V3-ndk_vendor',
     'audio.bluetooth.default_vendor',
     'libbluetooth_audio_session_vendor',
-    'libbluetooth_audio_session_aidl_vendor',
     'libcamera2ndk_vendor_vendor',
     'libclang_rt.ubsan_standalone-aarch64-android',
     'libprotobuf-cpp-full-21.12',
@@ -110,6 +119,7 @@ non_installable_modules = (
     'vendor.qti.hardware.perf@2.1_vendor',
     'vendor.qti.hardware.perf@2.2_vendor',
     'wpa_supplicant_vendor',
+    'libqti_vndfwk_detect_compat',
 )
 
 
@@ -139,13 +149,18 @@ def lib_fixup_vendor_suffix(lib: str, partition: str) -> str:
     return f'{lib}_vendor' if partition in ('odm', 'vendor') else lib
 
 
-def lib_fixup_neoteric_audio_impl(lib: str, partition: str) -> str:
-    return 'libaudioserviceexampleimpl-neoteric'
+def lib_fixup_vndfwk_detect(lib: str, partition: str) -> str:
+    return 'libqti_vndfwk_detect_compat' if partition in ('odm', 'vendor') else lib
+
+
+def lib_fixup_camera303_graphics(lib: str, partition: str) -> str:
+    return f'{lib}-camera303-xuanyuan' if partition == 'odm' else lib
 
 
 lib_fixups = {
     vendor_suffix_libs: lib_fixup_vendor_suffix,
-    ('libaudioserviceexampleimpl',): lib_fixup_neoteric_audio_impl,
+    ('libqti_vndfwk_detect',): lib_fixup_vndfwk_detect,
+    ('libgralloctypes', 'libtinyxml2'): lib_fixup_camera303_graphics,
 }
 
 motion_tuning_xmls = (
@@ -158,9 +173,12 @@ motion_tuning_xmls = (
 )
 
 blob_fixups: blob_fixups_user_type = {
+    'odm/bin/hw/vendor.qti.camera.provider-service_64': blob_fixup()
+        .add_needed('libcamera_heap_compat.so'),
+    # Retain the wrapper's IVibrator/default when merging the Xiaomi instance.
+    'odm/etc/vintf/manifest/vendor.xiaomi.hardware.vibratorfeature.service.xml': blob_fixup()
+        .regex_replace('<hal format="aidl" override="true">', '<hal format="aidl">'),
     'vendor/lib64/libtinyxml2.so': blob_fixup()
-        .fix_soname(),
-    'vendor/lib64/libaudio_aidl_conversion_common_ndk.so': blob_fixup()
         .fix_soname(),
     'vendor/bin/hw/vendor.qti.hardware.display.composer-service': blob_fixup()
         .replace_needed(
@@ -172,18 +190,6 @@ blob_fixups: blob_fixups_user_type = {
             'libtinyxml2.so',
             'libtinyxml2-neoteric.so',
         ),
-    (
-        'vendor/lib64/hw/libaudiocorehal.default.so',
-        'vendor/lib64/hw/libaudiocorehal.qti.so',
-    ): blob_fixup()
-        .replace_needed(
-            'libaudioserviceexampleimpl.so',
-            'libaudioserviceexampleimpl-neoteric.so',
-        ),
-    'vendor/lib64/libaudioserviceexampleimpl.so': blob_fixup()
-        .fix_soname()
-        .add_needed('libaudioutils_shim.so')
-        .add_needed('libbluetooth_audio_session_aidl_shim.so'),
     'vendor/lib64/libpowercore.so': blob_fixup()
         .replace_needed('libtinyxml2.so', 'libtinyxml2-neoteric.so'),
     (
@@ -203,17 +209,6 @@ blob_fixups: blob_fixups_user_type = {
             'libstagefright_foundation.so',
             'libstagefright_foundation-v33.so',
         ),
-    'vendor/lib64/libar-pal.so': blob_fixup()
-        .replace_needed('libaudioroute.so', 'libaudioroute-xuanyuan-v34.so')
-        .replace_needed('libtinyalsa.so', 'libtinyalsa-v34.so'),
-    'vendor/lib64/libaudioroute-v34.so': blob_fixup()
-        .replace_needed('libtinyalsa.so', 'libtinyalsa-v34.so')
-        .fix_soname(),
-    'vendor/lib64/libtinyalsa.so': blob_fixup()
-        .fix_soname(),
-    'odm/lib64/libaudioroute_ext.so': blob_fixup()
-        .replace_needed('libaudioroute.so', 'libaudioroute-xuanyuan-v34.so')
-        .replace_needed('libtinyalsa.so', 'libtinyalsa-v34.so'),
     'odm/bin/vendor.xiaomi.hardware.mitrustedui-service': blob_fixup()
         .replace_needed(
             'vendor.qti.hardware.systemhelperaidl-V1-ndk.so',
@@ -234,8 +229,18 @@ blob_fixups: blob_fixups_user_type = {
     ),
     'odm/etc/init/vendor.qti.camera.provider-service_64.rc': blob_fixup()
         .regex_replace(
+            r'\n    user cameraserver\n(?!    setenv LD_LIBRARY_PATH)',
+            '\n    user cameraserver\n    setenv LD_LIBRARY_PATH /odm/lib64/camera303-compat\n',
+        )
+        .regex_replace(
             r'\n    interface vendor\.xiaomi\.hardware\.quickcamera@1\.0::IQuickCameraService default',
             '',
+        ),
+    # The selected vendor libcameraopt and VINTF manifest implement AIDL, not HIDL.
+    'vendor/etc/init/vendor.qti.camera.provider-service_64.rc': blob_fixup()
+        .regex_replace(
+            r'interface vendor\.xiaomi\.hardware\.quickcamera@1\.0::IQuickCameraService default',
+            'interface aidl vendor.xiaomi.hardware.quickcamera.IQuickCameraService/default',
         ),
 }
 
@@ -338,6 +343,8 @@ def add_stock_audio_effect_overrides():
     contents = bp_path.read_text()
 
     for module_name in (
+        'libaudioutils',
+        'libtinyalsa',
         'libdownmixaidl',
         'libdynamicsprocessingaidl',
         'libloudnessenhanceraidl',

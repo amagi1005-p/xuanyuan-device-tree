@@ -1,0 +1,6 @@
+prebuilts/miuicamera/product/priv-app/MiuiCamera/MiuiCamera.apk filter=lfs diff=lfs merge=lfs -text
+# Preserve imported resources and unified-diff context verbatim.
+build-support/** linguist-generated=true -whitespace
+neoteric_compat/** -whitespace
+prebuilts/** -whitespace
+*.py text eol=lf

@@ -1,0 +1,7 @@
+# Use the physical 1440x3200 panel mode before the Qualcomm display HAL
+# publishes its active configuration.  The stock-derived value is 1080x2400,
+# which makes the Lineage composer select the wrong mode and can trigger the
+# SDE framedone timeout during the first DRM commit.
+on early-boot
+    setprop persist.sys.miui_resolution 1440,3200,450
+    setprop vendor.display.mixer_resolution 1440,3200,450

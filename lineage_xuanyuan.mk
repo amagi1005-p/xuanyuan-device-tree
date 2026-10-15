@@ -1,4 +1,5 @@
 #
+
 # SPDX-FileCopyrightText: The LineageOS Project
 # SPDX-License-Identifier: Apache-2.0
 #
@@ -15,6 +16,16 @@ PRODUCT_BUILD_VENDOR_BOOT_IMAGE := false
 
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+
+# xuanyuan requires Xiaomi's stock Wi-Fi HAL. Drop the generic AOSP service
+# after common product inheritance so both services do not target the same path.
+PRODUCT_PACKAGES := $(filter-out android.hardware.wifi-service,$(PRODUCT_PACKAGES))
+
+PRODUCT_PACKAGES := $(filter-out android.hardware.sensors-service.multihal,$(PRODUCT_PACKAGES))
+# Use the stock/Neoteric Xiaomi fingerprint HAL; do not install the generic Lineage service.
+PRODUCT_PACKAGES := $(filter-out \
+    android.hardware.biometrics.fingerprint-service.lineage, \
+    $(PRODUCT_PACKAGES))
 
 PRODUCT_DEVICE := xuanyuan
 PRODUCT_NAME := lineage_xuanyuan

@@ -1,0 +1,38 @@
+android_app_import {
+    name: "uimlpaservice-xuanyuan",
+    apk: "uimlpaservice.apk",
+    certificate: "platform",
+    product_specific: true,
+    enforce_uses_libs: false,
+    dex_preopt: {
+        enabled: false,
+    },
+}
+
+java_import {
+    name: "uimlpalibrary-xuanyuan",
+    jars: ["framework/uimlpalibrary.jar"],
+    stem: "uimlpalibrary",
+    product_specific: true,
+    installable: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_lpa_permission",
+    src: "permissions/lpa.xml",
+    filename: "lpa.xml",
+    sub_dir: "permissions",
+    product_specific: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libjni_aidl_service-xuanyuan",
+    stem: "libjni_aidl_service",
+    srcs: ["libjni_aidl_service.so"],
+    product_specific: true,
+    compile_multilib: "64",
+    strip: {
+        none: true,
+    },
+    check_elf_files: false,
+}

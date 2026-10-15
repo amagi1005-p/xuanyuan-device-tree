@@ -1,0 +1,61 @@
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
+android_app_import {
+    name: "EidService",
+    apk: "app/EidService/EidService.apk",
+    presigned: true,
+    preprocessed: true,
+    product_specific: true,
+    dex_preopt: { enabled: false },
+    enforce_uses_libs: false,
+}
+
+android_app_import {
+    name: "uimremoteclient",
+    apk: "app/uimremoteclient/uimremoteclient.apk",
+    presigned: true,
+    preprocessed: true,
+    product_specific: true,
+    dex_preopt: { enabled: false },
+    enforce_uses_libs: false,
+}
+
+android_app_import {
+    name: "uimremoteserver",
+    apk: "app/uimremoteserver/uimremoteserver.apk",
+    presigned: true,
+    preprocessed: true,
+    product_specific: true,
+    dex_preopt: { enabled: false },
+    enforce_uses_libs: false,
+}
+
+java_import {
+    name: "uimremoteclientlibrary",
+    jars: ["framework/uimremoteclientlibrary.jar"],
+    product_specific: true,
+    installable: true,
+}
+
+java_import {
+    name: "uimremoteserverlibrary",
+    jars: ["framework/uimremoteserverlibrary.jar"],
+    product_specific: true,
+    installable: true,
+}
+
+prebuilt_etc {
+    name: "xuanyuan_uimremoteclient_permission",
+    src: "permissions/uimremoteclient.xml",
+    filename: "uimremoteclient.xml",
+    sub_dir: "permissions",
+}
+
+prebuilt_etc {
+    name: "xuanyuan_uimremoteserver_permission",
+    src: "permissions/uimremoteserver.xml",
+    filename: "uimremoteserver.xml",
+    sub_dir: "permissions",
+}

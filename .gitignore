@@ -1,0 +1,10 @@
+# Local host authorization is not a distributable build input.
+/recovery/adb_keys
+__pycache__/
+*.pyc
+.superpowers/
+*.bak*
+*.before-*
+*.pre-*
+*.orig
+*.fix6.bak

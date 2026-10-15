@@ -80,7 +80,7 @@ telephony.lteOnCdmaDevice=1
 ro.wifi.channels=
 
 # Wi-Fi Display
-persist.debug.wfd.enable=1
+persist.debug.wfd.enable=0
 persist.sys.wfd.virtual=0
 
 # Miscellaneous
@@ -179,6 +179,8 @@ ro.miui.support_audiorecord_compress=true
 ro.miui.support_submix_multichannel=true
 ro.postinstall.fstab.prefix=/system
 ro.product.property_source_order=odm,vendor,product,system_ext,system
+# Stock camera role mapping requires vendor-enhanced framework detection.
+# Fix audio registration order locally, not by disabling this global switch.
 ro.vendor.qti.va_aosp.support=1
 ro.vendor.use_data_netmgrd=true
 security.perf_harden=1
@@ -187,3 +189,7 @@ sys.dfcservice.ctrl=false
 sys.dfcservice.enablelog.ctrl=false
 sys.qca1530=detect
 vendor.mm.enable.qcom_parser=16777215
+
+# Xiaomi 15 Ultra ultrasonic UDFPS backend
+persist.vendor.sys.fp.vendor=qcom_us
+persist.vendor.sys.fp.bigdata.type=qcom_us
